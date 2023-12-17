@@ -5,6 +5,7 @@ using UnityEngine;
 public class MovePlayer : MonoBehaviour
 {
     public float rotationSpeed, jumpSpeed, gravity;
+    public bool running_right, running_left;
     
     bool isOut;
     Vector3 startDirection;
@@ -20,6 +21,8 @@ public class MovePlayer : MonoBehaviour
 
         speedY = 0;
         isOut = true;
+        running_left = false;
+        running_right = false;
     }
 
     // Update is called once per frame
@@ -27,6 +30,7 @@ public class MovePlayer : MonoBehaviour
     {
         CharacterController charControl = GetComponent<CharacterController>();
         Vector3 position;
+        running_left = running_right = false;
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
         {
@@ -70,6 +74,7 @@ public class MovePlayer : MonoBehaviour
             direction = position - transform.parent.position;
             if (Input.GetKey(KeyCode.A))
             {
+                running_left = true;
                 target = transform.parent.position + Quaternion.AngleAxis(angle, Vector3.up) * direction;
                 if (charControl.Move(target - position) != CollisionFlags.None)
                 {
@@ -79,6 +84,7 @@ public class MovePlayer : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.D))
             {
+                running_right = true;
                 target = transform.parent.position + Quaternion.AngleAxis(-angle, Vector3.up) * direction;
                 if (charControl.Move(target - position) != CollisionFlags.None)
                 {
