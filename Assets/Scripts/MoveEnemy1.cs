@@ -76,7 +76,10 @@ public class MoveEnemy1 : MonoBehaviour
         {
             orientation *= Quaternion.AngleAxis(180.0f, Vector3.up);
         }
+        
+        Vector3 perpendicularDirection = Vector3.Cross(startDirection, Vector3.up).normalized;
+        Quaternion perpendicularRotation = Quaternion.LookRotation(perpendicularDirection, Vector3.up);
 
-        transform.rotation = orientation;
+        transform.rotation = orientation * perpendicularRotation;
     }
 }
