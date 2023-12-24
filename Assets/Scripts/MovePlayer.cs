@@ -46,6 +46,20 @@ public class MovePlayer : MonoBehaviour
         lastDashTime = -dashCooldown;
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G)) {
+            if (canTakeDamage) {
+                canTakeDamage = false;
+                Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, true);
+            }
+            else {
+                canTakeDamage = true;
+                Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
+            }
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -53,13 +67,11 @@ public class MovePlayer : MonoBehaviour
         Vector3 position;
 
         // Dash
-        if (Input.GetKey(KeyCode.L) && !isDashing && Time.time - lastDashTime > dashCooldown)
+        if (Input.GetKey(KeyCode.L) && !isDashing && Time.time - lastDashTime > dashCooldown && canTakeDamage)
         {
             isDashing = true;
             animator.SetBool("dashing", true);
             dashTimer = 0.0f;
-
-            canTakeDamage = false;
 
             Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, true);
             lastDashTime = Time.time;
@@ -97,7 +109,6 @@ public class MovePlayer : MonoBehaviour
                 isDashing = false;
                 animator.SetBool("dashing", false);
                 Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
-                canTakeDamage = true;
             }
         }
         else {
