@@ -366,6 +366,7 @@ GameObject:
   - component: {fileID: 8646231875286214870}
   - component: {fileID: 7230691064603788649}
   - component: {fileID: 4150816933428685695}
+  - component: {fileID: 1107677191104917421}
   m_Layer: 7
   m_Name: DefaultMalePBR
   m_TagString: Player
@@ -526,6 +527,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 3
+--- !u!114 &1107677191104917421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106585151094639786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b0a7b9baad6ed4cb6bd82eabbb7258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pistolPBR: {fileID: 5602755379237911373}
+  assaultRiflePBR: {fileID: 1247529804357242354}
+  animador: {fileID: 85870148452666392}
 --- !u!1 &2106585151094639788
 GameObject:
   m_ObjectHideFlags: 0
@@ -2057,6 +2073,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ea4ac0022de91142aadeff877fa1824, type: 3}
+--- !u!1 &5602755379237911373 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7510528619858064960, guid: 7ea4ac0022de91142aadeff877fa1824, type: 3}
+  m_PrefabInstance: {fileID: 2736567522070957325}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5602755379238135661 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7510528619858160224, guid: 7ea4ac0022de91142aadeff877fa1824, type: 3}
@@ -2126,5 +2147,10 @@ PrefabInstance:
 --- !u!4 &1247529804357079506 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6948081837284712788, guid: d12097ce3c216604c8624a2da1c02260, type: 3}
+  m_PrefabInstance: {fileID: 8159561693481431174}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1247529804357242354 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6948081837284883828, guid: d12097ce3c216604c8624a2da1c02260, type: 3}
   m_PrefabInstance: {fileID: 8159561693481431174}
   m_PrefabAsset: {fileID: 0}

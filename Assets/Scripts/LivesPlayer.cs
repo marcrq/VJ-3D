@@ -20,15 +20,14 @@ public class LivesPlayer : MonoBehaviour
         else
         {
             // Lógica si el jugador aún tiene vidas restantes
-            // Por ejemplo, puedes reiniciar la posición del jugador:
-            transform.position = Vector3.zero; // Posición inicial del jugador
+            
         }
     }
 
     // Método que se llama cuando el jugador colisiona con un enemigo
-    void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (hit.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             LoseLife();
         }
