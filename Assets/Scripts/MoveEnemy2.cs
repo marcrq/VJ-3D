@@ -2,18 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveEnemy1 : MonoBehaviour
+public class MoveEnemy2 : MonoBehaviour
 {
     public float movementSpeed;
-    public bool movingRight;
-    public float jumpSpeed;
-    public float gravity;
-    private float verticalSpeed;
-
-    private CharacterController charControl;
-    private Vector3 startDirection;
-    private float lastJumpTime;
-    private float jumpInterval;
+    public bool movingRight = true;
+    Vector3 startDirection;
+    CharacterController charControl;
 
     void Start()
     {
@@ -24,9 +18,6 @@ public class MoveEnemy1 : MonoBehaviour
         startDirection.Normalize();
 
         movingRight = true;
-        jumpInterval = 3.0f;
-        verticalSpeed = 0.0f;
-        lastJumpTime = -1.0f;
     }
 
     // Update is called once per frame
@@ -88,28 +79,5 @@ public class MoveEnemy1 : MonoBehaviour
         Quaternion perpendicularRotation = Quaternion.LookRotation(perpendicularDirection, Vector3.up);
 
         transform.rotation = orientation * perpendicularRotation;
-
-        if (charControl.Move(verticalSpeed * Time.deltaTime * Vector3.up) != CollisionFlags.None)
-        {
-            transform.position = position;
-            Physics.SyncTransforms();
-        }
-        if (Time.time - lastJumpTime > jumpInterval && Random.value < 0.1f)
-        {
-            verticalSpeed = jumpSpeed;
-            lastJumpTime = Time.time;
-        }
-
-        if (charControl.isGrounded)
-        {
-            if (verticalSpeed < 0.0f)
-            {
-                verticalSpeed = 0.0f;
-            }
-        }
-        else
-        {
-            verticalSpeed -= gravity * Time.deltaTime;
-        }
     }
 }

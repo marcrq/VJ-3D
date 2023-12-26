@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 2005563443181244075}
   - component: {fileID: 7307040526997062737}
   - component: {fileID: 8205048398284446766}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SlimePBR
   m_TagString: Enemy
   m_Icon: {fileID: 0}
