@@ -1597,7 +1597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2005563443181244075, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
       propertyPath: m_Center.y
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 2005563443181244075, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
