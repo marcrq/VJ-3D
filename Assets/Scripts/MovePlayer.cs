@@ -19,11 +19,16 @@ public class MovePlayer : MonoBehaviour
     float lastDashTime;
     float dashCooldown;
 
+    public AudioClip jumpSound;
+    public AudioClip dashSound;
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        // Store starting direction of the player with respect to the axis of the level
+        audioSource = GetComponent<AudioSource>();
+        
         startDirection = transform.position - transform.parent.position;
         startDirection.y = 0.0f;
         startDirection.Normalize();
@@ -67,6 +72,11 @@ public class MovePlayer : MonoBehaviour
 
             Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, true);
             lastDashTime = Time.time;
+
+            if (dashSound != null)
+            {
+                audioSource.PlayOneShot(dashSound);
+            }
         }
     }
 
@@ -225,6 +235,10 @@ public class MovePlayer : MonoBehaviour
             if (Input.GetKey(KeyCode.Space) && !isDashing) {
                 speedY = jumpSpeed;
                 animator.SetBool("jumping", true);
+                if (jumpSound != null)
+                {
+                    audioSource.PlayOneShot(jumpSound);
+                }
             }
         }
         else
