@@ -15,6 +15,15 @@ public class WeaponController : MonoBehaviour
     public int currentBullets;
     public GameObject bulletPrefab;
     public GameObject bulletHelper;
+    public bool isShooting;
+    public bool isReloading;
+
+    public MovePlayer movePlayer;
+
+    float lastShootTime;
+    float shootCooldown;
+    float lastReloadTime;
+    float reloadCooldown;
 
     void Start()
     {
@@ -22,6 +31,14 @@ public class WeaponController : MonoBehaviour
         pistolPBR.SetActive(true);
         gun = pistolPBR.transform;
         currentBullets = maxBullets;
+
+        lastShootTime = -1.0f;
+        shootCooldown = 0.5f;
+
+        lastReloadTime = -1.0f;
+        reloadCooldown = 0.5f;
+        isShooting = false;
+        isReloading = false;
     }
 
     void Update()
@@ -30,15 +47,25 @@ public class WeaponController : MonoBehaviour
         {
             CambiarArma();
         }
-        if (Input.GetKeyDown(KeyCode.F) && currentBullets > 0)
+        if (isShooting && Time.time - lastShootTime > shootCooldown) {
+            isShooting = false;
+        }
+        if (isReloading && Time.time - lastReloadTime > reloadCooldown) {
+            isReloading = false;
+        }
+        if (!isReloading && !isShooting && !movePlayer.isDashing && Input.GetKeyDown(KeyCode.F) && currentBullets > 0)
         {
+            isShooting = true;
             animador.SetTrigger("ShootTrigger");
+            lastShootTime = Time.time;
             Shoot();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (!isShooting && !isReloading && !movePlayer.isDashing && Input.GetKeyDown(KeyCode.R) && currentBullets == maxBullets)
         {
+            isReloading = true;
             animador.SetTrigger("ReloadTrigger");
+            lastReloadTime = Time.time;
             Reload();
         }
     }
@@ -74,7 +101,7 @@ public class WeaponController : MonoBehaviour
 
         if (pistolPBR.activeSelf)
         {
-            bulletScript.lifespan = 2f;
+            bulletScript.lifespan = 0.3f;
             bulletScript.damage = 50;
         }
         else if (assaultRiflePBR.activeSelf)

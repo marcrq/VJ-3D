@@ -149,5 +149,5 @@ MonoBehaviour:
   rb: {fileID: 6409226197879088224}
   movementSpeed: 100
   movingRight: 1
-  lifespan: 2
-  damage: 30
+  lifespan: 0.5
+  damage: 50
