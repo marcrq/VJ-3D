@@ -47,9 +47,12 @@ public class WeaponController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             CambiarArma();
+        }
+        if (Input.GetKeyDown(KeyCode.M)) {
+            ReloadMax();
         }
         if (isShooting && Time.time - lastShootTime > shootCooldown) {
             isShooting = false;
@@ -132,5 +135,10 @@ public class WeaponController : MonoBehaviour
             currentBullets += totalBullets;
             totalBullets = 0;
         }
+    }
+
+    void ReloadMax()
+    {
+        currentBullets = maxBullets;
     }
 }
