@@ -20,7 +20,9 @@ public class WeaponController : MonoBehaviour
 
     public MovePlayer movePlayer;
 
+    bool hasShot;
     float lastShootTime;
+    float shootTime;
     float shootCooldown;
     float lastReloadTime;
     float reloadCooldown;
@@ -34,10 +36,12 @@ public class WeaponController : MonoBehaviour
 
         lastShootTime = -1.0f;
         shootCooldown = 0.5f;
+        shootTime = 0.2f;
 
         lastReloadTime = -1.0f;
         reloadCooldown = 0.5f;
         isShooting = false;
+        hasShot = false;
         isReloading = false;
     }
 
@@ -49,6 +53,7 @@ public class WeaponController : MonoBehaviour
         }
         if (isShooting && Time.time - lastShootTime > shootCooldown) {
             isShooting = false;
+            hasShot = false;
         }
         if (isReloading && Time.time - lastReloadTime > reloadCooldown) {
             isReloading = false;
@@ -58,10 +63,14 @@ public class WeaponController : MonoBehaviour
             isShooting = true;
             animador.SetTrigger("ShootTrigger");
             lastShootTime = Time.time;
+        }
+
+        if (isShooting && !hasShot && Time.time - lastShootTime > shootTime) {
+            hasShot = true;
             Shoot();
         }
 
-        if (!isShooting && !isReloading && !movePlayer.isDashing && Input.GetKeyDown(KeyCode.R) && currentBullets == maxBullets)
+        if (!isShooting && !isReloading && !movePlayer.isDashing && Input.GetKeyDown(KeyCode.R) && currentBullets != maxBullets)
         {
             isReloading = true;
             animador.SetTrigger("ReloadTrigger");
@@ -89,7 +98,6 @@ public class WeaponController : MonoBehaviour
 
     void Shoot()
     {
-        Debug.Log(gun.position);
         currentBullets--;
         var bullet = (GameObject)Instantiate(
             bulletPrefab,

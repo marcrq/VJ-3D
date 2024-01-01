@@ -11,7 +11,7 @@ public class BulletController : MonoBehaviour
     Vector3 startDirection;
     
     public float lifespan;
-    public float damage;
+    public int damage;
 
     private MovePlayer playerScript;
 
@@ -89,13 +89,15 @@ public class BulletController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // Aquí puedes añadir el código para manejar la colisión con diferentes objetos
-        // Por ejemplo, si el objeto es un enemigo, puedes reducir su salud
+        LifeEnemy lifeEnemy = collision.gameObject.GetComponent<LifeEnemy>();
+        if (lifeEnemy != null)
+        {
+            lifeEnemy.TakeDamage(damage);
+        }
 
         // Crear un efecto de impacto cuando la bala golpea algo
         //Instantiate(impactEffect, transform.position, transform.rotation);
 
-        // Destruir la bala
         Destroy(gameObject);
     }
 }
