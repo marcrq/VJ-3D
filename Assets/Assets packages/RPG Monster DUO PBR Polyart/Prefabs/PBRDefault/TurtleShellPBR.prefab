@@ -518,6 +518,7 @@ GameObject:
   - component: {fileID: 8776882742259872903}
   - component: {fileID: 6067092491136135188}
   - component: {fileID: 7567581059742214380}
+  - component: {fileID: 5360868254348871940}
   m_Layer: 6
   m_Name: TurtleShellPBR
   m_TagString: Enemy
@@ -625,6 +626,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 20
   movingRight: 1
+--- !u!114 &5360868254348871940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524411113276028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dc339c911bfbdf4fa46bb7291b3357d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shield: 100
+  health: 200
 --- !u!1 &1532652994627396
 GameObject:
   m_ObjectHideFlags: 0

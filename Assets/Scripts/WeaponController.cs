@@ -27,8 +27,15 @@ public class WeaponController : MonoBehaviour
     float lastReloadTime;
     float reloadCooldown;
 
+    public AudioClip rifleSound;
+    public AudioClip pistolSound;
+    public AudioClip reloadSound;
+    private AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         assaultRiflePBR.SetActive(false);
         pistolPBR.SetActive(true);
         gun = pistolPBR.transform;
@@ -63,6 +70,18 @@ public class WeaponController : MonoBehaviour
         }
         if (!isReloading && !isShooting && !movePlayer.isDashing && Input.GetKeyDown(KeyCode.F) && currentBullets > 0)
         {
+            if (pistolPBR.activeSelf) {
+                if (pistolSound != null)
+                {
+                    audioSource.PlayOneShot(pistolSound);
+                }
+            }
+            else {
+                if (rifleSound != null)
+                {
+                    audioSource.PlayOneShot(rifleSound);
+                }
+            }
             isShooting = true;
             animador.SetTrigger("ShootTrigger");
             lastShootTime = Time.time;
@@ -75,6 +94,10 @@ public class WeaponController : MonoBehaviour
 
         if (!isShooting && !isReloading && !movePlayer.isDashing && Input.GetKeyDown(KeyCode.R) && currentBullets != maxBullets)
         {
+            if (reloadSound != null)
+            {
+                audioSource.PlayOneShot(reloadSound);
+            }
             isReloading = true;
             animador.SetTrigger("ReloadTrigger");
             lastReloadTime = Time.time;

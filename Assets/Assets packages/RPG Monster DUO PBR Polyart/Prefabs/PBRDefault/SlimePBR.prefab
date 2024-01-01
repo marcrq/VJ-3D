@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: 2005563443181244075}
   - component: {fileID: 7307040526997062737}
   - component: {fileID: 8205048398284446766}
+  - component: {fileID: 1599764741400032402}
   m_Layer: 6
   m_Name: SlimePBR
   m_TagString: Enemy
@@ -512,6 +513,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 10
   movingRight: 1
+  jumpSpeed: 10
+  gravity: 23
 --- !u!64 &8205048398284446766
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -534,3 +537,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &1599764741400032402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931298151966786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dc339c911bfbdf4fa46bb7291b3357d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shield: 100
+  health: 100

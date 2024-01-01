@@ -466,6 +466,7 @@ MonoBehaviour:
   running_right: 0
   running_left: 0
   last_running_left: 0
+  isDashing: 0
   jumpSound: {fileID: 8300000, guid: 86599f2e331686c4686479c9397c8f91, type: 3}
   dashSound: {fileID: 8300000, guid: cd09d236593bf8e43941af8febbec290, type: 3}
 --- !u!64 &8646231875286214870
@@ -545,12 +546,17 @@ MonoBehaviour:
   pistolPBR: {fileID: 5602755379237911373}
   assaultRiflePBR: {fileID: 1247529804357242354}
   animador: {fileID: 85870148452666392}
-  pistolGun: {fileID: 5602755379238135661}
-  rifleGun: {fileID: 1247529804357079506}
   maxBullets: 10
   totalBullets: 30
   currentBullets: 0
   bulletPrefab: {fileID: 2771588834576391359, guid: 082ecd432d0deea49a3e3cb84526f67b, type: 3}
+  bulletHelper: {fileID: 0}
+  isShooting: 0
+  isReloading: 0
+  movePlayer: {fileID: 7600388837946325169}
+  rifleSound: {fileID: 8300000, guid: d15cd65c996a883448e9736abf7e487f, type: 3}
+  pistolSound: {fileID: 8300000, guid: ae6f93f678aebee4cbb60eeb2fd4d5e7, type: 3}
+  reloadSound: {fileID: 8300000, guid: 38946a528554de74381294aa194173da, type: 3}
 --- !u!82 &5937383524415421324
 AudioSource:
   m_ObjectHideFlags: 0
