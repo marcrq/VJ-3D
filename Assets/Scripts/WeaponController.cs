@@ -4,42 +4,98 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    public GameObject pistolPBR; // Referencia al GameObject del arma de pistola
-    public GameObject assaultRiflePBR; // Referencia al GameObject del arma de rifle de asalto
-    public Animator animador; // Referencia al Animator del personaje
+    public GameObject pistolPBR;
+    public GameObject assaultRiflePBR;
+    public Animator animador;
+
+    private Transform gun;
+
+    public int maxBullets;
+    public int totalBullets;
+    public int currentBullets;
+    public GameObject bulletPrefab;
+    public GameObject bulletHelper;
 
     void Start()
     {
-        // Desactivar arma de rifle de asalto al inicio
         assaultRiflePBR.SetActive(false);
         pistolPBR.SetActive(true);
+        gun = pistolPBR.transform;
+        currentBullets = maxBullets;
     }
 
     void Update()
     {
-        // Verificar si se presiona la tecla M para cambiar el arma
         if (Input.GetKeyDown(KeyCode.M))
         {
             CambiarArma();
+        }
+        if (Input.GetKeyDown(KeyCode.F) && currentBullets > 0)
+        {
+            animador.SetTrigger("ShootTrigger");
+            Shoot();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            animador.SetTrigger("ReloadTrigger");
+            Reload();
         }
     }
 
     public void CambiarArma()
     {
-        // Cambiar la visibilidad de las armas
         pistolPBR.SetActive(!pistolPBR.activeSelf);
         assaultRiflePBR.SetActive(!assaultRiflePBR.activeSelf);
 
-        // Cambiar la animación del personaje según el arma equipada
         if (pistolPBR.activeSelf)
         {
-            // Configurar el parámetro del Animator para la animación del arma de pistola
             animador.SetTrigger("PistolTrigger");
+            gun = pistolPBR.transform;
         }
         else
         {
-            // Configurar el parámetro del Animator para la animación del arma de rifle de asalto
             animador.SetTrigger("RifleTrigger");
+            gun = assaultRiflePBR.transform;
+        }
+    }
+
+    void Shoot()
+    {
+        Debug.Log(gun.position);
+        currentBullets--;
+        var bullet = (GameObject)Instantiate(
+            bulletPrefab,
+            gun.position,
+            gun.rotation);
+        bullet.transform.parent = bulletHelper.transform;
+
+        var bulletScript = bullet.GetComponent<BulletController>();
+
+        if (pistolPBR.activeSelf)
+        {
+            bulletScript.lifespan = 2f;
+            bulletScript.damage = 50;
+        }
+        else if (assaultRiflePBR.activeSelf)
+        {
+            bulletScript.lifespan = Mathf.Infinity;
+            bulletScript.damage = 30;
+        }
+    }
+
+    void Reload()
+    {
+        int bulletsToReload = maxBullets - currentBullets;
+        if (totalBullets >= bulletsToReload)
+        {
+            currentBullets = maxBullets;
+            totalBullets -= bulletsToReload;
+        }
+        else
+        {
+            currentBullets += totalBullets;
+            totalBullets = 0;
         }
     }
 }

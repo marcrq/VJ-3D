@@ -545,6 +545,12 @@ MonoBehaviour:
   pistolPBR: {fileID: 5602755379237911373}
   assaultRiflePBR: {fileID: 1247529804357242354}
   animador: {fileID: 85870148452666392}
+  pistolGun: {fileID: 5602755379238135661}
+  rifleGun: {fileID: 1247529804357079506}
+  maxBullets: 10
+  totalBullets: 30
+  currentBullets: 0
+  bulletPrefab: {fileID: 2771588834576391359, guid: 082ecd432d0deea49a3e3cb84526f67b, type: 3}
 --- !u!82 &5937383524415421324
 AudioSource:
   m_ObjectHideFlags: 0
