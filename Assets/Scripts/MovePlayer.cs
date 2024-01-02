@@ -73,6 +73,7 @@ public class MovePlayer : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.X))
         {
+            animator.SetTrigger("BossTrigger");
             Vector3 moveVector = new Vector3(0, 50, 0);
             transform.position = transform.position + moveVector;
 
@@ -89,7 +90,17 @@ public class MovePlayer : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L) && !isDashing && Time.time - lastDashTime > dashCooldown && canTakeDamage)
         {
             isDashing = true;
-            animator.SetBool("dashing", true);
+            if (level == 5) {
+                if (last_running_left) {
+                    Debug.Log("entra");
+                    animator.SetBool("dashingLeft", true);
+                } else {
+                    animator.SetBool("dashingRight", true);
+                }
+            }
+            else {
+                animator.SetBool("dashing", true);
+            }
             dashTimer = 0.0f;
 
             Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, true);
@@ -142,7 +153,13 @@ public class MovePlayer : MonoBehaviour
                 if (dashTimer >= dashDuration)
                 {
                     isDashing = false;
-                    animator.SetBool("dashing", false);
+                    if (level == 5) {
+                        animator.SetBool("dashingLeft", false);
+                        animator.SetBool("dashingRight", false);
+                    }
+                    else {
+                        animator.SetBool("dashing", false);
+                    }
                     Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
                 }
             }
@@ -212,7 +229,13 @@ public class MovePlayer : MonoBehaviour
                         }
                     }
                 }
-                animator.SetBool("running", running_right ^ running_left);
+                if (level == 5) {
+                    animator.SetBool("runningLeft", running_left);
+                    animator.SetBool("runningRight", running_right);
+                }
+                else {
+                    animator.SetBool("running", running_right ^ running_left);
+                }
             }
         }
 
