@@ -8,7 +8,7 @@ public class AttackBoss : MonoBehaviour
     public GameObject rangeAttackPrefab;
     public GameObject boomPrefab;
 
-    public float attackInterval = 10.0f;
+    public float attackInterval = 5.0f;
     private float lastAttackTime;
     float attackTime = 0.5f;
     bool hasShot;
@@ -22,9 +22,14 @@ public class AttackBoss : MonoBehaviour
     LivesPlayer livesPlayerScript;
     public GameObject bulletHelper;
 
+    public AudioClip boomSound;
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         player = GameObject.Find("Wacho");
         if (player != null)
         {
@@ -44,7 +49,12 @@ public class AttackBoss : MonoBehaviour
         if (playerScript.level == 5 && Time.time - lastAttackTime > attackInterval)
         {
             hasShot = false;
-            animador.SetTrigger("AttackTrigger");
+            if (attackCount == 2) {
+                animador.SetTrigger("AttackTrigger2");
+            }
+            else {
+                animador.SetTrigger("AttackTrigger");
+            }
             lastAttackTime = Time.time;
         }
 
@@ -75,6 +85,11 @@ public class AttackBoss : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
 
+        if (boomSound != null)
+        {
+            audioSource.PlayOneShot(boomSound);
+        }
+
         Vector3 spawnPosition = rangeAttack.transform.position + new Vector3(0, 1, 0);
         var boomAttack = (GameObject)Instantiate(
             boomPrefab,
@@ -96,6 +111,14 @@ public class AttackBoss : MonoBehaviour
     }
 
     void ActivateShield()
+    {
+    }
+
+    void Shoot()
+    {
+    }
+
+    void PlayStep()
     {
     }
 }

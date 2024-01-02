@@ -5,6 +5,10 @@ using UnityEngine;
 public class LivesPlayer : MonoBehaviour
 {
     public int lives = 3;
+    public int defaultLayer;
+    public int enemyLayer;
+
+    public Animator animador;
 
     public void LoseLife()
     {
@@ -19,9 +23,16 @@ public class LivesPlayer : MonoBehaviour
         }
         else
         {
-            // Lógica si el jugador aún tiene vidas restantes
-            
+            animador.SetTrigger("hitTrigger");
+            StartCoroutine(IgnoreCollision());
         }
+    }
+
+    IEnumerator IgnoreCollision()
+    {
+        Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, true);
+        yield return new WaitForSeconds(2);
+        Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
     }
 
     // Método que se llama cuando el jugador colisiona con un enemigo

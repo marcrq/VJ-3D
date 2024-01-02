@@ -533,6 +533,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 3
+  defaultLayer: 0
+  enemyLayer: 0
+  animador: {fileID: 85870148452666392}
 --- !u!114 &1107677191104917421
 MonoBehaviour:
   m_ObjectHideFlags: 0
