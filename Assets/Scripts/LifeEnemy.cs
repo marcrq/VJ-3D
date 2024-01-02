@@ -30,7 +30,7 @@ public class LifeEnemy : MonoBehaviour
         else
         {
             health -= damage;
-            if (health < 0) {
+            if (health <= 0) {
                 Destroy(gameObject);
             }
             //healthSlider.value = health;

@@ -43,7 +43,7 @@ public class WeaponController : MonoBehaviour
 
         lastShootTime = -1.0f;
         shootCooldown = 0.5f;
-        shootTime = 0.2f;
+        shootTime = 0.3f;
 
         lastReloadTime = -1.0f;
         reloadCooldown = 0.5f;
@@ -135,7 +135,11 @@ public class WeaponController : MonoBehaviour
 
         if (pistolPBR.activeSelf)
         {
-            bulletScript.lifespan = 0.3f;
+            if (movePlayer.level == 5) {
+                bulletScript.lifespan = Mathf.Infinity;
+            } else {
+                bulletScript.lifespan = 0.3f;
+            }
             bulletScript.damage = 50;
         }
         else if (assaultRiflePBR.activeSelf)

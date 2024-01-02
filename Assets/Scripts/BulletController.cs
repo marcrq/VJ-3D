@@ -38,52 +38,61 @@ public class BulletController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float angle;
+        
         Vector3 direction, target;
 
         Vector3 position = transform.position;
 
-        angle = movementSpeed * Time.deltaTime;
-        direction = position - transform.parent.position;
+        if (playerScript.level == 5)
+        {
+            direction = playerScript.transform.forward;
+            target = position + direction * movementSpeed * Time.deltaTime;
+            rb.MovePosition(target);
+        }
+        else {
+            float angle;
+            angle = movementSpeed * Time.deltaTime;
+            direction = position - transform.parent.position;
 
-        if (movingRight)
-        {
-            target = transform.parent.position + Quaternion.AngleAxis(-angle, Vector3.up) * direction;
-            rb.MovePosition(new Vector3(target.x, position.y, target.z));
-        }
-        else
-        {
-            target = transform.parent.position + Quaternion.AngleAxis(angle, Vector3.up) * direction;
-            rb.MovePosition(new Vector3(target.x, position.y, target.z));
-        }
+            if (movingRight)
+            {
+                target = transform.parent.position + Quaternion.AngleAxis(-angle, Vector3.up) * direction;
+                rb.MovePosition(new Vector3(target.x, position.y, target.z));
+            }
+            else
+            {
+                target = transform.parent.position + Quaternion.AngleAxis(angle, Vector3.up) * direction;
+                rb.MovePosition(new Vector3(target.x, position.y, target.z));
+            }
 
-        Vector3 currentDirection = transform.position - transform.parent.position;
-        currentDirection.y = 0.0f;
-        currentDirection.Normalize();
+            Vector3 currentDirection = transform.position - transform.parent.position;
+            currentDirection.y = 0.0f;
+            currentDirection.Normalize();
 
-        Quaternion orientation;
-        if ((startDirection - currentDirection).magnitude < 1e-3)
-        {
-            orientation = Quaternion.AngleAxis(0.0f, Vector3.up);
-        }
-        else if ((startDirection + currentDirection).magnitude < 1e-3)
-        {
-            orientation = Quaternion.AngleAxis(180.0f, Vector3.up);
-        }
-        else
-        {
-            orientation = Quaternion.FromToRotation(startDirection, currentDirection);
-        }
+            Quaternion orientation;
+            if ((startDirection - currentDirection).magnitude < 1e-3)
+            {
+                orientation = Quaternion.AngleAxis(0.0f, Vector3.up);
+            }
+            else if ((startDirection + currentDirection).magnitude < 1e-3)
+            {
+                orientation = Quaternion.AngleAxis(180.0f, Vector3.up);
+            }
+            else
+            {
+                orientation = Quaternion.FromToRotation(startDirection, currentDirection);
+            }
 
-        if (!movingRight)
-        {
-            orientation *= Quaternion.AngleAxis(180.0f, Vector3.up);
-        }
-        
-        Vector3 perpendicularDirection = Vector3.Cross(startDirection, Vector3.up).normalized;
-        Quaternion perpendicularRotation = Quaternion.LookRotation(perpendicularDirection, Vector3.up);
+            if (!movingRight)
+            {
+                orientation *= Quaternion.AngleAxis(180.0f, Vector3.up);
+            }
+            
+            Vector3 perpendicularDirection = Vector3.Cross(startDirection, Vector3.up).normalized;
+            Quaternion perpendicularRotation = Quaternion.LookRotation(perpendicularDirection, Vector3.up);
 
-        transform.rotation = orientation * perpendicularRotation;
+            transform.rotation = orientation * perpendicularRotation;
+        }
     }
 
 

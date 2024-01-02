@@ -21,9 +21,13 @@ public class MovePlayer : MonoBehaviour
     float lastDashTime;
     float dashCooldown;
 
+    public int level;
+
     public AudioClip jumpSound;
     public AudioClip dashSound;
     private AudioSource audioSource;
+
+    public Camera mainCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +55,7 @@ public class MovePlayer : MonoBehaviour
 
         dashCooldown = 2.0f;
         lastDashTime = -dashCooldown;
+        level = 1;
     }
 
     void Update()
@@ -64,6 +69,21 @@ public class MovePlayer : MonoBehaviour
                 canTakeDamage = true;
                 Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Vector3 moveVector = new Vector3(0, 50, 0);
+            transform.position = transform.position + moveVector;
+
+            moveVector = new Vector3(0, 55, 0);
+            mainCamera.transform.position = mainCamera.transform.position + moveVector;
+
+            Vector3 cameraRotation = mainCamera.transform.rotation.eulerAngles;
+            cameraRotation.x += 20;
+            mainCamera.transform.rotation = Quaternion.Euler(cameraRotation);
+
+            level = 5;
         }
 
         if (Input.GetKeyDown(KeyCode.L) && !isDashing && Time.time - lastDashTime > dashCooldown && canTakeDamage)
@@ -196,14 +216,15 @@ public class MovePlayer : MonoBehaviour
             }
         }
 
+        // Change orientation of player accordingly
+        Quaternion orientation;
+
         // Correct orientation of player
         // Compute current direction
         Vector3 currentDirection = transform.position - transform.parent.position;
         currentDirection.y = 0.0f;
         currentDirection.Normalize();
 
-        // Change orientation of player accordingly
-        Quaternion orientation;
         if ((startDirection - currentDirection).magnitude < 1e-3)
         {
             orientation = Quaternion.AngleAxis(0.0f, Vector3.up);
@@ -218,9 +239,12 @@ public class MovePlayer : MonoBehaviour
         }
 
         // Check for left movement and adjust orientation
-        if (last_running_left)
+        if (level != 5 && last_running_left)
         {
             orientation *= Quaternion.AngleAxis(180.0f, Vector3.up);
+        }
+        if (level == 5) {
+            orientation *= Quaternion.AngleAxis(270.0f, Vector3.up);
         }
 
         transform.rotation = orientation;
