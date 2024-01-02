@@ -91,6 +91,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100002, guid: 887cc9cbcc10e8c45b6262198cc15ee6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8717199177918373653}
+    - targetCorrespondingSourceObject: {fileID: 100002, guid: 887cc9cbcc10e8c45b6262198cc15ee6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5512115109282026422}
   m_SourcePrefab: {fileID: 100100000, guid: 887cc9cbcc10e8c45b6262198cc15ee6, type: 3}
 --- !u!1 &3830910435362079862 stripped
 GameObject:
@@ -198,3 +201,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4277de78adc0b04a80966b4dcff9eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5512115109282026422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3830910435362079862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3ab234d62a62140b195032ab34c665, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 2771588834576391359, guid: b6cfd0ea293340e4bab989a2a7f7098b, type: 3}
+  attackInterval: 2
+  bulletHelper: {fileID: 0}

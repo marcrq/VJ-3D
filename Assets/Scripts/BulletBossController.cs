@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletBossController : MonoBehaviour
 {
     public Rigidbody rb;
-    //public GameObject impactEffect;
+    public GameObject impactEffect;
     public float movementSpeed;
     Vector3 startDirection;
     
@@ -48,8 +48,8 @@ public class BulletBossController : MonoBehaviour
             livesPlayer.LoseLife();
         }
 
-        // Crear un efecto de impacto cuando la bala golpea algo
-        //Instantiate(impactEffect, transform.position, transform.rotation);
+        var impact = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+        Destroy(impact, 0.5f);
 
         Destroy(gameObject);
     }

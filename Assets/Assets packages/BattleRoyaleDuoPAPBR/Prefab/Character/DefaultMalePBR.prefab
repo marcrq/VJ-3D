@@ -456,7 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   defaultLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -467,8 +467,10 @@ MonoBehaviour:
   running_left: 0
   last_running_left: 0
   isDashing: 0
+  level: 0
   jumpSound: {fileID: 8300000, guid: 86599f2e331686c4686479c9397c8f91, type: 3}
   dashSound: {fileID: 8300000, guid: cd09d236593bf8e43941af8febbec290, type: 3}
+  mainCamera: {fileID: 0}
 --- !u!64 &8646231875286214870
 MeshCollider:
   m_ObjectHideFlags: 0

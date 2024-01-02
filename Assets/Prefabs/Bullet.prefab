@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 6409226197879088224}
+  impactEffect: {fileID: 2944396702758532163, guid: e190bf97c041e58448af6b043116cba0, type: 3}
   movementSpeed: 100
   movingRight: 1
   lifespan: 0.5

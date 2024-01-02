@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     public Rigidbody rb;
-    //public GameObject impactEffect;
+    public GameObject impactEffect;
     public float movementSpeed;
     public bool movingRight = true;
     Vector3 startDirection;
@@ -104,8 +104,8 @@ public class BulletController : MonoBehaviour
             lifeEnemy.TakeDamage(damage);
         }
 
-        // Crear un efecto de impacto cuando la bala golpea algo
-        //Instantiate(impactEffect, transform.position, transform.rotation);
+        var impact = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+        Destroy(impact, 0.5f);
 
         Destroy(gameObject);
     }
