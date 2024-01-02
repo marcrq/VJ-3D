@@ -11,8 +11,7 @@ public class MoveBoss : MonoBehaviour
         player = GameObject.Find("Wacho").transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (player != null)
         {

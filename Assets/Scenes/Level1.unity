@@ -180,19 +180,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5512115109282026422, guid: 72c9dad2fd884694abb99b8dc561f15d, type: 3}
+      propertyPath: boomPrefab
+      value: 
+      objectReference: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473, type: 3}
+    - target: {fileID: 5512115109282026422, guid: 72c9dad2fd884694abb99b8dc561f15d, type: 3}
       propertyPath: bulletHelper
       value: 
       objectReference: {fileID: 1262038615}
+    - target: {fileID: 5512115109282026422, guid: 72c9dad2fd884694abb99b8dc561f15d, type: 3}
+      propertyPath: rangeAttackPrefab
+      value: 
+      objectReference: {fileID: 7957833072274404953, guid: 3355f6bfa6db8b24281b827de929694c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72c9dad2fd884694abb99b8dc561f15d, type: 3}
---- !u!1 &24671763 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2595502991298356516, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
-  m_PrefabInstance: {fileID: 52268889}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &24810193 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2106585151094639786, guid: 31bdf8eb5c2f2a545956e0763ca4c455, type: 3}
@@ -875,14 +878,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5360868254348871940, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
-      propertyPath: shield50
-      value: 
-      objectReference: {fileID: 24671763}
-    - target: {fileID: 5360868254348871940, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
-      propertyPath: shield100
-      value: 
-      objectReference: {fileID: 1524025381}
     - target: {fileID: 6067092491136135188, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
       propertyPath: m_Convex
       value: 1
@@ -2057,11 +2052,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1 &1524025381 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2434655198870976711, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
-  m_PrefabInstance: {fileID: 52268889}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1599626181 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4212263691463966, guid: e07fc9f29d78ca94a9e286395af04b0e, type: 3}
