@@ -551,3 +551,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shield: 100
   health: 100
+  animador: {fileID: 95457531584545886}

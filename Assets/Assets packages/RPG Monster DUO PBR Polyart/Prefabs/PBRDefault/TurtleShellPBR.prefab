@@ -640,6 +640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shield: 100
   health: 200
+  animador: {fileID: 95706204029656638}
 --- !u!1 &1532652994627396
 GameObject:
   m_ObjectHideFlags: 0

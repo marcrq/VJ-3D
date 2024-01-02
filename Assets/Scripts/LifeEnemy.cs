@@ -8,6 +8,8 @@ public class LifeEnemy : MonoBehaviour
     public int shield;
     public int health;
 
+    public Animator animador;
+
     //public Slider shieldSlider;
     //public Slider healthSlider;
 
@@ -21,6 +23,7 @@ public class LifeEnemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        animador.SetTrigger("HitTrigger");
         if (shield > 0)
         {
             shield -= damage;

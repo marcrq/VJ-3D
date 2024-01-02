@@ -5,8 +5,12 @@ using UnityEngine;
 public class AttackBoss : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public float attackInterval = 2.0f;
+    public float attackInterval = 3.0f;
     private float lastAttackTime;
+    float attackTime = 0.5f;
+    bool hasShot;
+
+    public Animator animador;
 
     MovePlayer playerScript;
     public GameObject bulletHelper;
@@ -20,6 +24,8 @@ public class AttackBoss : MonoBehaviour
             playerScript = player.GetComponent<MovePlayer>();
         }
         lastAttackTime = Time.time;
+        hasShot = false;
+
     }
 
     // Update is called once per frame
@@ -27,13 +33,23 @@ public class AttackBoss : MonoBehaviour
     {
         if (playerScript.level == 5 && Time.time - lastAttackTime > attackInterval)
         {
+            hasShot = false;
+            animador.SetTrigger("AttackTrigger");
+            lastAttackTime = Time.time;
+        }
+
+        if (playerScript.level == 5 && !hasShot && Time.time - lastAttackTime > attackTime) {
+            hasShot = true;
             Vector3 spawnPosition = transform.position + new Vector3(0, 1, 0);
             var bullet = (GameObject)Instantiate(
             bulletPrefab,
             spawnPosition,
             transform.rotation);
             bullet.transform.parent = bulletHelper.transform;
-            lastAttackTime = Time.time;
         }
+    }
+
+    void ActivateShield()
+    {
     }
 }
