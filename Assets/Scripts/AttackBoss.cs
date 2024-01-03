@@ -30,7 +30,7 @@ public class AttackBoss : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
-        player = GameObject.Find("Wacho");
+        player = GameObject.Find("Player");
         if (player != null)
         {
             playerScript = player.GetComponent<MovePlayer>();

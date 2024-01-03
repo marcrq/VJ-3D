@@ -8,10 +8,15 @@ public class TPLevelController : MonoBehaviour
     public GameObject Text;
     public GameObject Camera;
     private GameObject instanciateText;
+    MovePlayer movePlayer;
 
     void Start()
     {
-
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            movePlayer = player.GetComponent<MovePlayer>();
+        }
     }
 
     void Update()
@@ -27,13 +32,31 @@ public class TPLevelController : MonoBehaviour
         }
     }
 
+    IEnumerator TeleportPlayer(Collider other)
+    {
+        other.GetComponent<Collider>().enabled = false;
+        yield return new WaitForFixedUpdate();
+        if (movePlayer.level == 5) {
+            other.GetComponent<Rigidbody>().MovePosition(other.transform.position + Vector3.up * 42f);
+            Camera.transform.Translate(Vector3.up * 45f);
+            Vector3 cameraRotation = Camera.transform.rotation.eulerAngles;
+            cameraRotation.x += 20;
+            Camera.transform.rotation = Quaternion.Euler(cameraRotation);
+        }
+        else {
+            other.GetComponent<Rigidbody>().MovePosition(other.transform.position + Vector3.up * 42f);
+            Camera.transform.Translate(Vector3.up * 40f);
+        }
+        other.GetComponent<Collider>().enabled = true;
+        Destroy(instanciateText);
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.Z))
         {
-            other.transform.Translate(Vector3.up * 40f);
-            Camera.transform.Translate(Vector3.up * 40f);
-            Destroy(instanciateText);
+            ++movePlayer.level;
+            StartCoroutine(TeleportPlayer(other));
         }
     }
 

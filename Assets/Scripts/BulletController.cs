@@ -23,7 +23,7 @@ public class BulletController : MonoBehaviour
         startDirection.y = 0.0f;
         startDirection.Normalize();
         
-        GameObject player = GameObject.Find("Wacho");
+        GameObject player = GameObject.Find("Player");
         if (player != null)
         {
             playerScript = player.GetComponent<MovePlayer>();

@@ -459,9 +459,9 @@ MonoBehaviour:
     m_Bits: 64
   defaultLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   rotationSpeed: 80
-  jumpSpeed: 10
+  jumpSpeed: 12
   gravity: 25
   running_right: 0
   running_left: 0
@@ -481,14 +481,14 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
@@ -533,8 +533,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 3
-  defaultLayer: 0
-  enemyLayer: 0
+  defaultLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
   animador: {fileID: 85870148452666392}
 --- !u!114 &1107677191104917421
 MonoBehaviour:

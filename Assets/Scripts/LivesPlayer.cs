@@ -5,8 +5,8 @@ using UnityEngine;
 public class LivesPlayer : MonoBehaviour
 {
     public int lives = 3;
-    public int defaultLayer;
-    public int enemyLayer;
+    public LayerMask defaultLayer;
+    public LayerMask enemyLayer;
 
     public Animator animador;
 
@@ -35,7 +35,6 @@ public class LivesPlayer : MonoBehaviour
         Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
     }
 
-    // Método que se llama cuando el jugador colisiona con un enemigo
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))

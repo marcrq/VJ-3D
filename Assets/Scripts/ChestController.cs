@@ -42,6 +42,7 @@ public class ChestController : MonoBehaviour
             isOpened = true;
             Destroy(instanciateText);
             instanciateObject = Instantiate(ChestObject, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity);
+            instanciateObject.transform.parent = transform;
         }
     }
 

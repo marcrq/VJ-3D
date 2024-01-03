@@ -8,7 +8,7 @@ public class MoveBoss : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.Find("Wacho").transform;
+        player = GameObject.Find("Player").transform;
     }
 
     void FixedUpdate()
