@@ -27,6 +27,7 @@ public class WeaponController : MonoBehaviour
     float shootCooldown;
     float lastReloadTime;
     float reloadCooldown;
+    bool hasRifle;
 
     public AudioClip rifleSound;
     public AudioClip pistolSound;
@@ -51,12 +52,13 @@ public class WeaponController : MonoBehaviour
         isShooting = false;
         hasShot = false;
         isReloading = false;
+        hasRifle = false;
     }
 
     void Update()
     {
         if (movePlayer.canMove) {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (hasRifle && Input.GetKeyDown(KeyCode.C))
             {
                 CambiarArma();
             }
@@ -194,5 +196,20 @@ public class WeaponController : MonoBehaviour
     void ReloadMax()
     {
         currentBulletsRifle = currentBulletsPistol = maxBullets;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if (other.CompareTag("ChestR"))
+            {
+                hasRifle = true;
+            }
+            else if (other.CompareTag("ChestB"))
+            {
+                totalBullets += 10;
+            }
+        }
     }
 }
