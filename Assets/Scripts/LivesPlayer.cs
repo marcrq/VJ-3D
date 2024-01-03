@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LivesPlayer : MonoBehaviour
 {
     public int lives = 100;
     public LayerMask defaultLayer;
     public LayerMask enemyLayer;
+
+    public Slider healthSlider;
+    public TextMeshProUGUI health;
 
     public Animator animador;
 
@@ -23,13 +28,21 @@ public class LivesPlayer : MonoBehaviour
         enemyLayer = LayerMask.NameToLayer("Enemy");
         defaultLayer = LayerMask.NameToLayer("Player");
 
+        healthSlider.maxValue = lives;
+        healthSlider.value = lives;
+        health.text = lives.ToString();
+
         StartCoroutine(GameOverAfterTwoMinutes());
     }
 
     public void LoseLife()
     {
         lives -= 5; // Resta vida
-        Debug.Log("Vida restantes: " + lives);
+        if (lives >= 0)
+        {
+            healthSlider.value = lives;
+            health.text = lives.ToString();
+        }
 
         if (lives <= 0)
         {
