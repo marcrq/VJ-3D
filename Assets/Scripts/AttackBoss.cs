@@ -61,6 +61,7 @@ public class AttackBoss : MonoBehaviour
         if (attackCount == 2 && !hasShot && Time.time - lastAttackTime > attackTime) {
             hasShot = true;
             Vector3 spawnPosition = player.transform.position;
+            spawnPosition.y += 0.1f;
             var rangeAttack = (GameObject)Instantiate(
             rangeAttackPrefab,
             spawnPosition,

@@ -11,15 +11,24 @@ public class ChestController : MonoBehaviour
     private bool isOpened;
     private GameObject instanciateText;
     private GameObject instanciateObject;
+    bool isInChest;
 
     void Start()
     {
         isOpened = false;
+        isInChest = false;
     }
 
     void Update()
     {
-
+        if (!isOpened && isInChest && Input.GetKeyDown(KeyCode.Z))
+        {
+            isOpened = true;
+            isInChest = false;
+            Destroy(instanciateText);
+            instanciateObject = Instantiate(ChestObject, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity);
+            instanciateObject.transform.parent = transform;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,22 +43,18 @@ public class ChestController : MonoBehaviour
     {
         if (isOpened || !other.CompareTag("Player"))
         {
+            isInChest = false;
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            isOpened = true;
-            Destroy(instanciateText);
-            instanciateObject = Instantiate(ChestObject, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity);
-            instanciateObject.transform.parent = transform;
-        }
+        isInChest = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            isInChest = false;
             if (instanciateText != null)
                 Destroy(instanciateText);
 
