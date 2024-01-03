@@ -19,6 +19,10 @@ public class LifeEnemy : MonoBehaviour
     public Slider shieldSlider;
     public Slider healthSlider;
 
+    public bool isBoss;
+
+    LivesPlayer livesPlayer;
+
     void Start()
     {
         shield100.SetActive(true);
@@ -27,6 +31,12 @@ public class LifeEnemy : MonoBehaviour
         shieldSlider.value = shield;
         healthSlider.maxValue = health;
         healthSlider.value = health;
+
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            livesPlayer = player.GetComponent<LivesPlayer>();
+        }
     }
 
     public void TakeDamage(int damage)
@@ -49,7 +59,14 @@ public class LifeEnemy : MonoBehaviour
         {
             health -= damage;
             if (health <= 0) {
-                Destroy(parent);
+                if (!isBoss) {
+                    Destroy(parent);
+                }
+                else {
+                    animador.SetTrigger("deathTrigger");
+                    livesPlayer.YouWin();
+                    Destroy(parent, 2.0f);
+                }
             }
             healthSlider.value = health;
         }

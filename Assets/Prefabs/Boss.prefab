@@ -985,6 +985,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5767688315175801645, guid: 72c9dad2fd884694abb99b8dc561f15d, type: 3}
+      propertyPath: isBoss
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767688315175801645, guid: 72c9dad2fd884694abb99b8dc561f15d, type: 3}
       propertyPath: parent
       value: 
       objectReference: {fileID: 7523528932351207607}

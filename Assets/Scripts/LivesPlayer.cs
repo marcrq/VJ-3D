@@ -53,9 +53,21 @@ public class LivesPlayer : MonoBehaviour
         StartCoroutine(GoToGameOver());
     }
 
+    public void YouWin() {
+        animador.SetTrigger("winTrigger");
+
+        playerScript.canMove = false;
+        StartCoroutine(GoToCredits());
+    }
+
     IEnumerator GoToGameOver() {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
         SceneManager.LoadScene("GameOver");
+    }
+
+    IEnumerator GoToCredits() {
+        yield return new WaitForSeconds(4);
+        SceneManager.LoadScene("Credits");
     }
 
     IEnumerator IgnoreCollision()
