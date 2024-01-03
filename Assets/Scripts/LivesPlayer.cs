@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LivesPlayer : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class LivesPlayer : MonoBehaviour
         }
         else
         {
+            Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, true);
             animador.SetTrigger("hitTrigger");
             StartCoroutine(IgnoreCollision());
         }
@@ -46,7 +48,12 @@ public class LivesPlayer : MonoBehaviour
         animador.SetTrigger("deathTrigger");
 
         playerScript.canMove = false;
-        // passar a game over
+        StartCoroutine(GoToGameOver());
+    }
+
+    IEnumerator GoToGameOver() {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("GameOver");
     }
 
     IEnumerator IgnoreCollision()
