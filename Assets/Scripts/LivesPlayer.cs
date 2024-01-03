@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LivesPlayer : MonoBehaviour
 {
-    public int lives = 3;
+    public int lives = 100;
     public LayerMask defaultLayer;
     public LayerMask enemyLayer;
 
@@ -28,8 +28,8 @@ public class LivesPlayer : MonoBehaviour
 
     public void LoseLife()
     {
-        lives--; // Resta una vida
-        Debug.Log("Vidas restantes: " + lives);
+        lives -= 5; // Resta vida
+        Debug.Log("Vida restantes: " + lives);
 
         if (lives <= 0)
         {
