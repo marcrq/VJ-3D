@@ -10,7 +10,6 @@ public class MovePlayer : MonoBehaviour
     public float rotationSpeed, jumpSpeed, gravity;
     public bool running_right, running_left, last_running_left;
     
-    bool isOut;
     Vector3 startDirection;
     float speedY;
 
@@ -42,7 +41,6 @@ public class MovePlayer : MonoBehaviour
         startDirection.Normalize();
 
         speedY = 0;
-        isOut = true;
         running_left = false;
         running_right = false;
         last_running_left = false;
@@ -64,7 +62,8 @@ public class MovePlayer : MonoBehaviour
 
     void Update()
     {
-        if (canMove) {
+        CharacterController charControl = GetComponent<CharacterController>();
+        if (canMove && charControl != null && charControl.enabled) {
             if (Input.GetKeyDown(KeyCode.G)) {
                 if (canTakeDamage) {
                     canTakeDamage = false;
@@ -76,7 +75,7 @@ public class MovePlayer : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.I))
             {
                 animator.SetTrigger("BossTrigger");
                 Vector3 moveVector = new Vector3(0, 50, 0);
@@ -122,8 +121,8 @@ public class MovePlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (canMove) {
-            CharacterController charControl = GetComponent<CharacterController>();
+        CharacterController charControl = GetComponent<CharacterController>();
+        if (canMove && charControl != null && charControl.enabled) {
             Vector3 position;
 
             WeaponController weaponController = GetComponent<WeaponController>();
@@ -172,37 +171,6 @@ public class MovePlayer : MonoBehaviour
                 }
                 else {
                     running_left = running_right = false;
-
-                    if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
-                    {
-                        Vector3 direction, target, up;
-
-                        position = transform.position;
-                        direction = position - transform.parent.position;
-                        up = new Vector3(0.0f, transform.position.y, 0.0f);
-
-                        if (Input.GetKey(KeyCode.W) && isOut)
-                        {
-                            target = Vector3.MoveTowards(transform.position, up, 2f);
-                            isOut = false;
-                            if (charControl.Move(target - position) != CollisionFlags.None)
-                            {
-                                transform.position = target;
-                                Physics.SyncTransforms();
-                            }
-                        }
-                        if (Input.GetKey(KeyCode.S) && !isOut)
-                        {
-                            target = Vector3.MoveTowards(transform.position, up, -2f);
-                            isOut = true;
-                            if (charControl.Move(target - position) != CollisionFlags.None)
-                            {
-                                transform.position = target;
-                                Physics.SyncTransforms();
-                            }
-                        }
-                    }
-
 
                     // Left-right movement
                     if (Input.GetKey(KeyCode.A) ^ Input.GetKey(KeyCode.D))

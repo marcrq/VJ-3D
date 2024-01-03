@@ -10,6 +10,7 @@ public class TPLevelController : MonoBehaviour
     private GameObject instanciateText;
     MovePlayer movePlayer;
     GameObject player;
+    bool isInTp;
 
     void Start()
     {
@@ -18,11 +19,17 @@ public class TPLevelController : MonoBehaviour
         {
             movePlayer = player.GetComponent<MovePlayer>();
         }
+
+        isInTp = false;
     }
 
     void Update()
     {
-
+        if (isInTp && Input.GetKeyDown(KeyCode.Z)) {
+            isInTp = false;
+            ++movePlayer.level;
+            StartCoroutine(TeleportPlayer());
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,33 +40,35 @@ public class TPLevelController : MonoBehaviour
         }
     }
 
-    IEnumerator TeleportPlayer(Collider other)
+    IEnumerator TeleportPlayer()
     {
-        other.GetComponent<Collider>().enabled = false;
+
+        player.GetComponent<Collider>().enabled = false;
+
         yield return new WaitForFixedUpdate();
         if (movePlayer.level == 5) {
             Animator animator = player.GetComponent<Animator>();
             animator.SetTrigger("BossTrigger");
-            other.GetComponent<Rigidbody>().MovePosition(other.transform.position + Vector3.up * 42f);
+            player.transform.Translate(Vector3.up * 42f);
             Camera.transform.Translate(Vector3.up * 45f);
             Vector3 cameraRotation = Camera.transform.rotation.eulerAngles;
             cameraRotation.x += 20;
             Camera.transform.rotation = Quaternion.Euler(cameraRotation);
         }
         else {
-            other.GetComponent<Rigidbody>().MovePosition(other.transform.position + Vector3.up * 42f);
+            player.transform.Translate(Vector3.up * 42f);
             Camera.transform.Translate(Vector3.up * 40f);
         }
-        other.GetComponent<Collider>().enabled = true;
+        
+        player.GetComponent<Collider>().enabled = true;
         Destroy(instanciateText);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.Z))
+        if (other.CompareTag("Player"))
         {
-            ++movePlayer.level;
-            StartCoroutine(TeleportPlayer(other));
+            isInTp = true;
         }
     }
 
@@ -67,6 +76,7 @@ public class TPLevelController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            isInTp = false;
             if (instanciateText != null)
                 Destroy(instanciateText);
         }
