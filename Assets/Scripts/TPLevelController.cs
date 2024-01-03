@@ -9,10 +9,11 @@ public class TPLevelController : MonoBehaviour
     public GameObject Camera;
     private GameObject instanciateText;
     MovePlayer movePlayer;
+    GameObject player;
 
     void Start()
     {
-        GameObject player = GameObject.Find("Player");
+        player = GameObject.Find("Player");
         if (player != null)
         {
             movePlayer = player.GetComponent<MovePlayer>();
@@ -37,6 +38,8 @@ public class TPLevelController : MonoBehaviour
         other.GetComponent<Collider>().enabled = false;
         yield return new WaitForFixedUpdate();
         if (movePlayer.level == 5) {
+            Animator animator = player.GetComponent<Animator>();
+            animator.SetTrigger("BossTrigger");
             other.GetComponent<Rigidbody>().MovePosition(other.transform.position + Vector3.up * 42f);
             Camera.transform.Translate(Vector3.up * 45f);
             Vector3 cameraRotation = Camera.transform.rotation.eulerAngles;
