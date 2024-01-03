@@ -75,22 +75,6 @@ public class MovePlayer : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                animator.SetTrigger("BossTrigger");
-                Vector3 moveVector = new Vector3(0, 50, 0);
-                transform.position = transform.position + moveVector;
-
-                moveVector = new Vector3(0, 55, 0);
-                mainCamera.transform.position = mainCamera.transform.position + moveVector;
-
-                Vector3 cameraRotation = mainCamera.transform.rotation.eulerAngles;
-                cameraRotation.x += 20;
-                mainCamera.transform.rotation = Quaternion.Euler(cameraRotation);
-
-                level = 5;
-            }
-
             if (Input.GetKeyDown(KeyCode.L) && !isDashing && Time.time - lastDashTime > dashCooldown && canTakeDamage)
             {
                 isDashing = true;
