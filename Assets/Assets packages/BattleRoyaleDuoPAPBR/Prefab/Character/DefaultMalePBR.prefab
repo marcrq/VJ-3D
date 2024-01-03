@@ -461,7 +461,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   rotationSpeed: 80
-  jumpSpeed: 12
+  jumpSpeed: 13
   gravity: 25
   running_right: 0
   running_left: 0
