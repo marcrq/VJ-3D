@@ -22,6 +22,8 @@ public class LivesPlayer : MonoBehaviour
 
         enemyLayer = LayerMask.NameToLayer("Enemy");
         defaultLayer = LayerMask.NameToLayer("Player");
+
+        StartCoroutine(GameOverAfterTwoMinutes());
     }
 
     public void LoseLife()
@@ -61,5 +63,10 @@ public class LivesPlayer : MonoBehaviour
         Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, true);
         yield return new WaitForSeconds(2);
         Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
+    }
+
+    IEnumerator GameOverAfterTwoMinutes() {
+        yield return new WaitForSeconds(120);
+        GameOver();
     }
 }
