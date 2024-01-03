@@ -9,6 +9,8 @@ public class MoveEnemy2 : MonoBehaviour
     Vector3 startDirection;
     CharacterController charControl;
 
+    LivesPlayer livesPlayer;
+
     void Start()
     {
         charControl = GetComponent<CharacterController>();
@@ -18,6 +20,12 @@ public class MoveEnemy2 : MonoBehaviour
         startDirection.Normalize();
 
         movingRight = true;
+
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            livesPlayer = player.GetComponent<LivesPlayer>();
+        }
     }
 
     // Update is called once per frame
@@ -79,5 +87,13 @@ public class MoveEnemy2 : MonoBehaviour
         Quaternion perpendicularRotation = Quaternion.LookRotation(perpendicularDirection, Vector3.up);
 
         transform.rotation = orientation * perpendicularRotation;
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Player"))
+        {
+            livesPlayer.LoseLife();
+        }
     }
 }

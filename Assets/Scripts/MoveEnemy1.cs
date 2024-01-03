@@ -15,6 +15,8 @@ public class MoveEnemy1 : MonoBehaviour
     private float lastJumpTime;
     private float jumpInterval;
 
+    LivesPlayer livesPlayer;
+
     void Start()
     {
         charControl = GetComponent<CharacterController>();
@@ -27,6 +29,12 @@ public class MoveEnemy1 : MonoBehaviour
         jumpInterval = 3.0f;
         verticalSpeed = 0.0f;
         lastJumpTime = -1.0f;
+
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            livesPlayer = player.GetComponent<LivesPlayer>();
+        }
     }
 
     // Update is called once per frame
@@ -110,6 +118,14 @@ public class MoveEnemy1 : MonoBehaviour
         else
         {
             verticalSpeed -= gravity * Time.deltaTime;
+        }
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Player"))
+        {
+            livesPlayer.LoseLife();
         }
     }
 }

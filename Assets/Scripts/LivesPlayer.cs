@@ -10,6 +10,11 @@ public class LivesPlayer : MonoBehaviour
 
     public Animator animador;
 
+    public void Start() {
+        enemyLayer = LayerMask.NameToLayer("Enemy");
+        defaultLayer = LayerMask.NameToLayer("Player");
+    }
+
     public void LoseLife()
     {
         lives--; // Resta una vida
@@ -33,13 +38,5 @@ public class LivesPlayer : MonoBehaviour
         Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, true);
         yield return new WaitForSeconds(2);
         Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            LoseLife();
-        }
     }
 }
