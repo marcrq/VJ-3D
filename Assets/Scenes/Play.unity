@@ -950,7 +950,7 @@ PrefabInstance:
     - target: {fileID: 4544955988081250199, guid: a40d7854b2bdd6047966a327dc7d335f, type: 3}
       propertyPath: ChestObject
       value: 
-      objectReference: {fileID: 2771588834576391359, guid: b6cfd0ea293340e4bab989a2a7f7098b, type: 3}
+      objectReference: {fileID: 2771588834576391359, guid: f90b649c49aee834083d1ebe9e872145, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1032,7 +1032,7 @@ PrefabInstance:
     - target: {fileID: 4544955988081250199, guid: a40d7854b2bdd6047966a327dc7d335f, type: 3}
       propertyPath: ChestObject
       value: 
-      objectReference: {fileID: 2771588834576391359, guid: 082ecd432d0deea49a3e3cb84526f67b, type: 3}
+      objectReference: {fileID: 2771588834576391359, guid: f90b649c49aee834083d1ebe9e872145, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1448,7 +1448,7 @@ PrefabInstance:
     - target: {fileID: 4544955988081250199, guid: a40d7854b2bdd6047966a327dc7d335f, type: 3}
       propertyPath: ChestObject
       value: 
-      objectReference: {fileID: 2771588834576391359, guid: 082ecd432d0deea49a3e3cb84526f67b, type: 3}
+      objectReference: {fileID: 2771588834576391359, guid: f90b649c49aee834083d1ebe9e872145, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1530,7 +1530,7 @@ PrefabInstance:
     - target: {fileID: 4544955988081250199, guid: a40d7854b2bdd6047966a327dc7d335f, type: 3}
       propertyPath: ChestObject
       value: 
-      objectReference: {fileID: 2771588834576391359, guid: 082ecd432d0deea49a3e3cb84526f67b, type: 3}
+      objectReference: {fileID: 2771588834576391359, guid: f90b649c49aee834083d1ebe9e872145, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1612,7 +1612,7 @@ PrefabInstance:
     - target: {fileID: 4544955988081250199, guid: a40d7854b2bdd6047966a327dc7d335f, type: 3}
       propertyPath: ChestObject
       value: 
-      objectReference: {fileID: 2771588834576391359, guid: 082ecd432d0deea49a3e3cb84526f67b, type: 3}
+      objectReference: {fileID: 2771588834576391359, guid: f90b649c49aee834083d1ebe9e872145, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3596,7 +3596,7 @@ PrefabInstance:
     - target: {fileID: 4544955988081250199, guid: a40d7854b2bdd6047966a327dc7d335f, type: 3}
       propertyPath: ChestObject
       value: 
-      objectReference: {fileID: 2771588834576391359, guid: 082ecd432d0deea49a3e3cb84526f67b, type: 3}
+      objectReference: {fileID: 2771588834576391359, guid: f90b649c49aee834083d1ebe9e872145, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4806,7 +4806,7 @@ PrefabInstance:
     - target: {fileID: 4544955988081250199, guid: a40d7854b2bdd6047966a327dc7d335f, type: 3}
       propertyPath: ChestObject
       value: 
-      objectReference: {fileID: 2771588834576391359, guid: 082ecd432d0deea49a3e3cb84526f67b, type: 3}
+      objectReference: {fileID: 6948081837284883828, guid: d12097ce3c216604c8624a2da1c02260, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5299,7 +5299,7 @@ PrefabInstance:
     - target: {fileID: 4544955988081250199, guid: a40d7854b2bdd6047966a327dc7d335f, type: 3}
       propertyPath: ChestObject
       value: 
-      objectReference: {fileID: 2771588834576391359, guid: b6cfd0ea293340e4bab989a2a7f7098b, type: 3}
+      objectReference: {fileID: 2771588834576391359, guid: f90b649c49aee834083d1ebe9e872145, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
