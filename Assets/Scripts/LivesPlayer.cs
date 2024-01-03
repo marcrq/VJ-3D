@@ -10,7 +10,15 @@ public class LivesPlayer : MonoBehaviour
 
     public Animator animador;
 
+    MovePlayer playerScript;
+
     public void Start() {
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            playerScript = player.GetComponent<MovePlayer>();
+        }
+
         enemyLayer = LayerMask.NameToLayer("Enemy");
         defaultLayer = LayerMask.NameToLayer("Player");
     }
@@ -24,13 +32,21 @@ public class LivesPlayer : MonoBehaviour
         {
             // Lógica para el Game Over, por ejemplo:
             Debug.Log("Game Over");
-            // Aquí podrías reiniciar el nivel, mostrar un mensaje de game over, etc.
+
+            GameOver();
         }
         else
         {
             animador.SetTrigger("hitTrigger");
             StartCoroutine(IgnoreCollision());
         }
+    }
+
+    public void GameOver() {
+        animador.SetTrigger("deathTrigger");
+
+        playerScript.canMove = false;
+        // passar a game over
     }
 
     IEnumerator IgnoreCollision()
