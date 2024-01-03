@@ -12,7 +12,8 @@ public class WeaponController : MonoBehaviour
 
     public int maxBullets;
     public int totalBullets;
-    public int currentBullets;
+    public int currentBulletsPistol;
+    public int currentBulletsRifle;
     public GameObject bulletPrefab;
     public GameObject bulletHelper;
     public bool isShooting;
@@ -39,7 +40,7 @@ public class WeaponController : MonoBehaviour
         assaultRiflePBR.SetActive(false);
         pistolPBR.SetActive(true);
         gun = pistolPBR.transform;
-        currentBullets = maxBullets;
+        currentBulletsPistol = currentBulletsRifle = maxBullets;
 
         lastShootTime = -1.0f;
         shootCooldown = 0.5f;
@@ -54,54 +55,58 @@ public class WeaponController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            CambiarArma();
-        }
-        if (Input.GetKeyDown(KeyCode.M)) {
-            ReloadMax();
-        }
-        if (isShooting && Time.time - lastShootTime > shootCooldown) {
-            isShooting = false;
-            hasShot = false;
-        }
-        if (isReloading && Time.time - lastReloadTime > reloadCooldown) {
-            isReloading = false;
-        }
-        if (!isReloading && !isShooting && !movePlayer.isDashing && Input.GetKeyDown(KeyCode.F) && currentBullets > 0)
-        {
-            if (pistolPBR.activeSelf) {
-                if (pistolSound != null)
-                {
-                    audioSource.PlayOneShot(pistolSound);
-                }
-            }
-            else {
-                if (rifleSound != null)
-                {
-                    audioSource.PlayOneShot(rifleSound);
-                }
-            }
-            isShooting = true;
-            animador.SetTrigger("ShootTrigger");
-            lastShootTime = Time.time;
-        }
-
-        if (isShooting && !hasShot && Time.time - lastShootTime > shootTime) {
-            hasShot = true;
-            Shoot();
-        }
-
-        if (!isShooting && !isReloading && !movePlayer.isDashing && Input.GetKeyDown(KeyCode.R) && currentBullets != maxBullets)
-        {
-            if (reloadSound != null)
+        if (movePlayer.canMove) {
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                audioSource.PlayOneShot(reloadSound);
+                CambiarArma();
             }
-            isReloading = true;
-            animador.SetTrigger("ReloadTrigger");
-            lastReloadTime = Time.time;
-            Reload();
+            if (Input.GetKeyDown(KeyCode.M)) {
+                ReloadMax();
+            }
+            if (isShooting && Time.time - lastShootTime > shootCooldown) {
+                isShooting = false;
+                hasShot = false;
+            }
+            if (isReloading && Time.time - lastReloadTime > reloadCooldown) {
+                isReloading = false;
+            }
+            if (!isReloading && !isShooting && !movePlayer.isDashing && Input.GetKeyDown(KeyCode.F) && 
+                ((currentBulletsPistol > 0 && pistolPBR.activeSelf) || (currentBulletsRifle > 0 && assaultRiflePBR.activeSelf)))
+            {
+                if (pistolPBR.activeSelf) {
+                    if (pistolSound != null)
+                    {
+                        audioSource.PlayOneShot(pistolSound);
+                    }
+                }
+                else {
+                    if (rifleSound != null)
+                    {
+                        audioSource.PlayOneShot(rifleSound);
+                    }
+                }
+                isShooting = true;
+                animador.SetTrigger("ShootTrigger");
+                lastShootTime = Time.time;
+            }
+
+            if (isShooting && !hasShot && Time.time - lastShootTime > shootTime) {
+                hasShot = true;
+                Shoot();
+            }
+
+            if (!isShooting && !isReloading && !movePlayer.isDashing && Input.GetKeyDown(KeyCode.R) &&
+                ((currentBulletsPistol != maxBullets && pistolPBR.activeSelf) || (currentBulletsRifle != maxBullets && assaultRiflePBR.activeSelf)))
+            {
+                if (reloadSound != null)
+                {
+                    audioSource.PlayOneShot(reloadSound);
+                }
+                isReloading = true;
+                animador.SetTrigger("ReloadTrigger");
+                lastReloadTime = Time.time;
+                Reload();
+            }
         }
     }
 
@@ -124,7 +129,12 @@ public class WeaponController : MonoBehaviour
 
     void Shoot()
     {
-        currentBullets--;
+        if (pistolPBR.activeSelf) {
+            currentBulletsPistol--;
+        } else {
+            currentBulletsRifle--;
+        }
+        
         var bullet = (GameObject)Instantiate(
             bulletPrefab,
             gun.position,
@@ -151,21 +161,38 @@ public class WeaponController : MonoBehaviour
 
     void Reload()
     {
-        int bulletsToReload = maxBullets - currentBullets;
-        if (totalBullets >= bulletsToReload)
-        {
-            currentBullets = maxBullets;
-            totalBullets -= bulletsToReload;
+        if (pistolPBR.activeSelf) {
+            int bulletsToReload = maxBullets - currentBulletsPistol;
+            if (totalBullets >= bulletsToReload)
+            {
+
+                currentBulletsPistol = maxBullets;
+                totalBullets -= bulletsToReload;
+            }
+            else
+            {
+                currentBulletsPistol += totalBullets;
+                totalBullets = 0;
+            }
         }
-        else
-        {
-            currentBullets += totalBullets;
-            totalBullets = 0;
+        else {
+            int bulletsToReload = maxBullets - currentBulletsRifle;
+            if (totalBullets >= bulletsToReload)
+            {
+
+                currentBulletsRifle = maxBullets;
+                totalBullets -= bulletsToReload;
+            }
+            else
+            {
+                currentBulletsRifle += totalBullets;
+                totalBullets = 0;
+            }
         }
     }
 
     void ReloadMax()
     {
-        currentBullets = maxBullets;
+        currentBulletsRifle = currentBulletsPistol = maxBullets;
     }
 }
