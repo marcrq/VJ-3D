@@ -30,6 +30,12 @@ public class TPLevelController : MonoBehaviour
             ++movePlayer.level;
             StartCoroutine(TeleportPlayer());
         }
+
+        if (Input.GetKeyDown(KeyCode.B) && movePlayer.level == 1) {
+            isInTp = false;
+            movePlayer.level = 5;
+            StartCoroutine(TeleportToBoss());
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -62,6 +68,25 @@ public class TPLevelController : MonoBehaviour
         
         player.GetComponent<Collider>().enabled = true;
         Destroy(instanciateText);
+    }
+
+    IEnumerator TeleportToBoss()
+    {
+
+        player.GetComponent<Collider>().enabled = false;
+
+        yield return new WaitForFixedUpdate();
+
+        Animator animator = player.GetComponent<Animator>();
+        animator.SetTrigger("BossTrigger");
+        Vector3 movement = new Vector3(0.0f, 162f, 0.0f);
+        player.transform.Translate(movement);
+        Camera.transform.Translate(movement);
+        Vector3 cameraRotation = Camera.transform.rotation.eulerAngles;
+        cameraRotation.x += 20;
+        Camera.transform.rotation = Quaternion.Euler(cameraRotation);
+        
+        player.GetComponent<Collider>().enabled = true;
     }
 
     private void OnTriggerStay(Collider other)
