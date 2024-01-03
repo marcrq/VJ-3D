@@ -12,20 +12,21 @@ public class LifeEnemy : MonoBehaviour
 
     public int shieldMid;
 
+    public GameObject parent;
     public GameObject shield100;
     public GameObject shield50;
 
-    //public Slider shieldSlider;
-    //public Slider healthSlider;
+    public Slider shieldSlider;
+    public Slider healthSlider;
 
     void Start()
     {
         shield100.SetActive(true);
         shield50.SetActive(false);
-        //shieldSlider.maxValue = shield;
-        //shieldSlider.value = shield;
-        //healthSlider.maxValue = health;
-        //healthSlider.value = health;
+        shieldSlider.maxValue = shield;
+        shieldSlider.value = shield;
+        healthSlider.maxValue = health;
+        healthSlider.value = health;
     }
 
     public void TakeDamage(int damage)
@@ -42,15 +43,15 @@ public class LifeEnemy : MonoBehaviour
                 shield = 0;
                 shield50.SetActive(false);
             }
-            //shieldSlider.value = shield;
+            shieldSlider.value = shield;
         }
         else
         {
             health -= damage;
             if (health <= 0) {
-                Destroy(gameObject);
+                Destroy(parent);
             }
-            //healthSlider.value = health;
+            healthSlider.value = health;
         }
     }
 }
