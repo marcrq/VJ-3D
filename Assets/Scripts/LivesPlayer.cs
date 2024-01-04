@@ -14,6 +14,9 @@ public class LivesPlayer : MonoBehaviour
     public Slider healthSlider;
     public TextMeshProUGUI health;
 
+    public GameObject UI;
+    public GameObject youWin;
+
     public Animator animador;
 
     MovePlayer playerScript;
@@ -44,9 +47,6 @@ public class LivesPlayer : MonoBehaviour
 
         if (lives <= 0)
         {
-            // Lógica para el Game Over, por ejemplo:
-            Debug.Log("Game Over");
-
             GameOver();
         }
         else
@@ -66,9 +66,16 @@ public class LivesPlayer : MonoBehaviour
 
     public void YouWin() {
         animador.SetTrigger("winTrigger");
-
-        playerScript.canMove = false;
+        StartCoroutine(WinUI());
         StartCoroutine(GoToCredits());
+    }
+
+    IEnumerator WinUI()
+    {
+        yield return new WaitForSeconds(3);
+        youWin.SetActive(true);
+        UI.SetActive(false);
+        playerScript.canMove = false;
     }
 
     IEnumerator GoToGameOver() {
@@ -77,7 +84,7 @@ public class LivesPlayer : MonoBehaviour
     }
 
     IEnumerator GoToCredits() {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(8);
         SceneManager.LoadScene("Credits");
     }
 
