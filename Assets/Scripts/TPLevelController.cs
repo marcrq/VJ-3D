@@ -10,6 +10,7 @@ public class TPLevelController : MonoBehaviour
     private GameObject instanciateText;
     MovePlayer movePlayer;
     GameObject player;
+    public GameObject cercle;
     bool isInTp;
 
     void Start()
@@ -43,6 +44,7 @@ public class TPLevelController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             instanciateText = Instantiate(Text, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.Euler(0f, Camera.transform.rotation.eulerAngles.y - 90f, 0f));
+            cercle.SetActive(true);
         }
     }
 
@@ -68,6 +70,7 @@ public class TPLevelController : MonoBehaviour
         
         player.GetComponent<Collider>().enabled = true;
         Destroy(instanciateText);
+        cercle.SetActive(false);
     }
 
     IEnumerator TeleportToBoss()
@@ -87,6 +90,7 @@ public class TPLevelController : MonoBehaviour
         Camera.transform.rotation = Quaternion.Euler(cameraRotation);
         
         player.GetComponent<Collider>().enabled = true;
+        cercle.SetActive(false);
     }
 
     private void OnTriggerStay(Collider other)
@@ -102,6 +106,7 @@ public class TPLevelController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isInTp = false;
+            cercle.SetActive(false);
             if (instanciateText != null)
                 Destroy(instanciateText);
         }

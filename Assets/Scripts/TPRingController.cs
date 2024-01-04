@@ -10,6 +10,7 @@ public class TPRingController : MonoBehaviour
     private GameObject instanciateText;
     MovePlayer movePlayer;
     GameObject player;
+    public GameObject cercle;
     bool isInTpRing;
     public bool isIn;
 
@@ -31,10 +32,12 @@ public class TPRingController : MonoBehaviour
         if (isIn && isInTpRing && Input.GetKeyDown(KeyCode.S)) {
             isInTpRing = false;
             player.transform.position = player.transform.position + movement;
+            cercle.SetActive(false);
         }
         else if (!isIn && isInTpRing && Input.GetKeyDown(KeyCode.W)) {
             isInTpRing = false;
             player.transform.position = player.transform.position + movement;
+            cercle.SetActive(false);
         }
     }
 
@@ -42,9 +45,9 @@ public class TPRingController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("entra");
             isInTpRing = false;
             instanciateText = Instantiate(Text, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.Euler(0f, Camera.transform.rotation.eulerAngles.y - 90f, 0f));
+            cercle.SetActive(true);
         }
     }
 
@@ -60,6 +63,7 @@ public class TPRingController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            cercle.SetActive(false);
             isInTpRing = false;
             if (instanciateText != null)
                 Destroy(instanciateText);
