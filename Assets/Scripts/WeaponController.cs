@@ -168,6 +168,8 @@ public class WeaponController : MonoBehaviour
             gun.rotation);
         bullet.transform.parent = bulletHelper.transform;
 
+        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
+
         var bulletScript = bullet.GetComponent<BulletController>();
 
         if (pistolPBR.activeSelf)
