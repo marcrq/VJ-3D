@@ -33,6 +33,12 @@ public class BulletController : MonoBehaviour
             }
         }
 
+        LayerMask playerLayer = LayerMask.NameToLayer("Player");
+        LayerMask islandLayer = LayerMask.NameToLayer("Island");
+
+        Physics.IgnoreLayerCollision(gameObject.layer, playerLayer, true);
+        Physics.IgnoreLayerCollision(gameObject.layer, islandLayer, true);
+
         Destroy(gameObject, lifespan);
     }
 
@@ -98,13 +104,16 @@ public class BulletController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        LifeEnemy lifeEnemy = collision.gameObject.GetComponent<LifeEnemy>();
-        if (lifeEnemy != null)
+        if (!collision.gameObject.CompareTag("Player"))
         {
-            lifeEnemy.TakeDamage(damage);
+            LifeEnemy lifeEnemy = collision.gameObject.GetComponent<LifeEnemy>();
+            if (lifeEnemy != null)
+            {
+                lifeEnemy.TakeDamage(damage);
+            }
+
             var impact = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
             Destroy(impact, 0.5f);
-
             Destroy(gameObject);
         }
     }
