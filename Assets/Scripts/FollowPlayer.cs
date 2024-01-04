@@ -8,6 +8,8 @@ public class FollowPlayer : MonoBehaviour
 
     Vector3 startDirection;
 
+    MovePlayer movePlayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +17,8 @@ public class FollowPlayer : MonoBehaviour
         startDirection = player.transform.position - player.transform.parent.position;
         startDirection.y = 0.0f;
         startDirection.Normalize();
+
+        movePlayer = player.GetComponent<MovePlayer>();
     }
 
     // Update is called once per frame
@@ -33,5 +37,16 @@ public class FollowPlayer : MonoBehaviour
         else
             orientation = Quaternion.FromToRotation(startDirection, currentDirection);
         transform.parent.rotation = orientation;
+
+        int dif;
+        if (movePlayer.level == 5) {
+            dif = 2;
+        } else {
+            dif = -1;
+        }
+        // Make the camera follow the player's y position
+        Vector3 cameraPosition = transform.parent.position;
+        cameraPosition.y = player.transform.position.y + dif;
+        transform.parent.position = cameraPosition;
     }
 }

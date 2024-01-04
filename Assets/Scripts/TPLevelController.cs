@@ -59,14 +59,12 @@ public class TPLevelController : MonoBehaviour
             Animator animator = player.GetComponent<Animator>();
             animator.SetTrigger("BossTrigger");
             player.transform.Translate(Vector3.up * 42f);
-            Camera.transform.Translate(Vector3.up * 42f);
             Vector3 cameraRotation = Camera.transform.rotation.eulerAngles;
             cameraRotation.x += 20;
             Camera.transform.rotation = Quaternion.Euler(cameraRotation);
         }
         else {
             player.transform.Translate(Vector3.up * 42f);
-            Camera.transform.Translate(Vector3.up * 40f);
         }
         
         player.GetComponent<Collider>().enabled = true;
