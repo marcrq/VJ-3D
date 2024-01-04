@@ -700,7 +700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 30, y: -20}
+  m_AnchoredPosition: {x: 30, y: -25}
   m_SizeDelta: {x: 370, y: 300}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &858373389
@@ -723,20 +723,22 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"A": moviment esquerra
+  m_text: '"A": Move Left
 
-    "D": moviment dreta
+    "D": Move Right
 
-    "Space": saltar
+    "Space": Jump
 
-    "L":
-    Dash/esquiva
+    "L": Dash/Dodge
 
-    "C": Canviar arma
+    "C":
+    Change Weapon
 
-    "F": Disparar
+    "F": Shoot
 
-    "R": Recarregar
+    "R": Recharge
+
+    "P": Pause
 
 '
   m_isRightToLeft: 0
@@ -1189,8 +1191,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: -20}
-  m_SizeDelta: {x: 770, y: 500}
+  m_AnchoredPosition: {x: 20, y: -25}
+  m_SizeDelta: {x: 700, y: 550}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1684962507
 MonoBehaviour:

@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
     public void OnClickResumeButton()
     {
         pauseMenu.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void OnClickExitButton()
