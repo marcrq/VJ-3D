@@ -23,8 +23,13 @@ public class LifeEnemy : MonoBehaviour
 
     LivesPlayer livesPlayer;
 
+    public AudioClip boomSound;
+    private AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         shield100.SetActive(true);
         shield50.SetActive(false);
         shieldSlider.maxValue = shield;
@@ -63,12 +68,21 @@ public class LifeEnemy : MonoBehaviour
                     Destroy(parent);
                 }
                 else {
+                    StartCoroutine(PlayBoomSound());
                     animador.SetTrigger("deathTrigger");
                     livesPlayer.YouWin();
-                    Destroy(parent, 2.0f);
+                    Destroy(parent, 3.0f);
                 }
             }
             healthSlider.value = health;
+        }
+    }
+
+    IEnumerator PlayBoomSound() {
+        yield return new WaitForSeconds(3.0f);
+        if (boomSound != null)
+        {
+            audioSource.PlayOneShot(boomSound);
         }
     }
 }

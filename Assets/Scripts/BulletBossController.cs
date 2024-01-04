@@ -45,7 +45,7 @@ public class BulletBossController : MonoBehaviour
         LivesPlayer livesPlayer = collision.gameObject.GetComponent<LivesPlayer>();
         if (livesPlayer != null)
         {
-            livesPlayer.LoseLife();
+            livesPlayer.LoseLife(10);
         }
 
         var impact = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);

@@ -93,7 +93,7 @@ public class MoveEnemy2 : MonoBehaviour
     {
         if (hit.gameObject.CompareTag("Player"))
         {
-            livesPlayer.LoseLife();
+            livesPlayer.LoseLife(5);
         }
     }
 }

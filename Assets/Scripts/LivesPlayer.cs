@@ -35,9 +35,9 @@ public class LivesPlayer : MonoBehaviour
         StartCoroutine(GameOverAfterTwoMinutes());
     }
 
-    public void LoseLife()
+    public void LoseLife(int damage)
     {
-        lives -= 5; // Resta vida
+        lives -= damage; // Resta vida
         if (lives >= 0)
         {
             healthSlider.value = lives;
@@ -74,12 +74,12 @@ public class LivesPlayer : MonoBehaviour
     }
 
     IEnumerator GoToGameOver() {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(5);
         SceneManager.LoadScene("GameOver");
     }
 
     IEnumerator GoToCredits() {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(5);
         SceneManager.LoadScene("Credits");
     }
 

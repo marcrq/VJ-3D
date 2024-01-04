@@ -125,7 +125,7 @@ public class MoveEnemy1 : MonoBehaviour
     {
         if (hit.gameObject.CompareTag("Player"))
         {
-            livesPlayer.LoseLife();
+            livesPlayer.LoseLife(5);
         }
     }
 }

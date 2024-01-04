@@ -15,6 +15,9 @@ public class TPRingController : MonoBehaviour
     public bool isIn;
     Collider myCollider;
 
+    public AudioClip tpSound;
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,8 @@ public class TPRingController : MonoBehaviour
 
         isInTpRing = false;
         myCollider = GetComponent<Collider>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     IEnumerator TeleportPlayer()
@@ -33,6 +38,11 @@ public class TPRingController : MonoBehaviour
         isInTpRing = false;
         player.GetComponent<Collider>().enabled = false;
         myCollider.enabled = false;
+
+        if (tpSound != null)
+        {
+            audioSource.PlayOneShot(tpSound);
+        }
         yield return new WaitForFixedUpdate();
         player.transform.position = player.transform.position + movement;
         cercle.SetActive(false);

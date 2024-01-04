@@ -13,8 +13,13 @@ public class TPLevelController : MonoBehaviour
     public GameObject cercle;
     bool isInTp;
 
+    public AudioClip tpSound;
+    private AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         player = GameObject.Find("Player");
         if (player != null)
         {
@@ -44,8 +49,11 @@ public class TPLevelController : MonoBehaviour
 
     IEnumerator TeleportPlayer()
     {
+        if (tpSound != null)
+        {
+            audioSource.PlayOneShot(tpSound);
+        }
         player.GetComponent<Collider>().enabled = false;
-
         yield return new WaitForFixedUpdate();
         if (movePlayer.level == 5) {
             Animator animator = player.GetComponent<Animator>();

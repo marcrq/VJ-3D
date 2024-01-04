@@ -104,7 +104,7 @@ public class AttackBoss : MonoBehaviour
 
         if (distance <= radius)
         {
-            livesPlayerScript.LoseLife();
+            livesPlayerScript.LoseLife(20);
         }
 
         Destroy(rangeAttack);

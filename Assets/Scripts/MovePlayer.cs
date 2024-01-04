@@ -6,6 +6,7 @@ public class MovePlayer : MonoBehaviour
 {
     Animator animator;
     public LayerMask enemyLayer;
+    public LayerMask attackLayer;
     public LayerMask defaultLayer;
     public float rotationSpeed, jumpSpeed, gravity;
     public bool running_right, running_left, last_running_left;
@@ -51,6 +52,7 @@ public class MovePlayer : MonoBehaviour
         dashTimer = 0.0f;
 
         enemyLayer = LayerMask.NameToLayer("Enemy");
+        attackLayer = LayerMask.NameToLayer("Attack");
         defaultLayer = gameObject.layer;
 
         dashCooldown = 2.0f;
@@ -68,10 +70,12 @@ public class MovePlayer : MonoBehaviour
                 if (canTakeDamage) {
                     canTakeDamage = false;
                     Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, true);
+                    Physics.IgnoreLayerCollision(defaultLayer, attackLayer, true);
                 }
                 else {
                     canTakeDamage = true;
                     Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
+                    Physics.IgnoreLayerCollision(defaultLayer, attackLayer, false);
                 }
             }
 
@@ -106,80 +110,32 @@ public class MovePlayer : MonoBehaviour
     void FixedUpdate()
     {
         CharacterController charControl = GetComponent<CharacterController>();
-        if (canMove && charControl != null && charControl.enabled) {
+        if (charControl != null && charControl.enabled) {
             Vector3 position;
+            if (canMove) {
+                WeaponController weaponController = GetComponent<WeaponController>();
 
-            WeaponController weaponController = GetComponent<WeaponController>();
-
-            if (!weaponController.isShooting && !weaponController.isReloading) {
-                // Dash
-                if (isDashing)
-                {
-                    dashTimer += Time.deltaTime;
-
-                    float angle;
-                    Vector3 direction, target;
-
-                    position = transform.position;
-                    angle = rotationSpeed * Time.deltaTime * 2;
-                    direction = position - transform.parent.position;
-
-                    if (last_running_left) {
-                        target = transform.parent.position + Quaternion.AngleAxis(angle, Vector3.up) * direction;
-                        if (charControl.Move(target - position) != CollisionFlags.None)
-                        {
-                            transform.position = position;
-                            Physics.SyncTransforms();
-                        }
-                    } else {
-                        target = transform.parent.position + Quaternion.AngleAxis(-angle, Vector3.up) * direction;
-                        if (charControl.Move(target - position) != CollisionFlags.None)
-                        {
-                            transform.position = position;
-                            Physics.SyncTransforms();
-                        }
-                    }
-
-                    if (dashTimer >= dashDuration)
+                if (!weaponController.isShooting && !weaponController.isReloading) {
+                    // Dash
+                    if (isDashing)
                     {
-                        isDashing = false;
-                        if (level == 5) {
-                            animator.SetBool("dashingLeft", false);
-                            animator.SetBool("dashingRight", false);
-                        }
-                        else {
-                            animator.SetBool("dashing", false);
-                        }
-                        Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
-                    }
-                }
-                else {
-                    running_left = running_right = false;
+                        dashTimer += Time.deltaTime;
 
-                    // Left-right movement
-                    if (Input.GetKey(KeyCode.A) ^ Input.GetKey(KeyCode.D))
-                    {
                         float angle;
                         Vector3 direction, target;
 
                         position = transform.position;
-                        angle = rotationSpeed * Time.deltaTime;
+                        angle = rotationSpeed * Time.deltaTime * 2;
                         direction = position - transform.parent.position;
-                        if (Input.GetKey(KeyCode.A))
-                        {
-                            running_left = true;
-                            last_running_left = true;
+
+                        if (last_running_left) {
                             target = transform.parent.position + Quaternion.AngleAxis(angle, Vector3.up) * direction;
                             if (charControl.Move(target - position) != CollisionFlags.None)
                             {
                                 transform.position = position;
                                 Physics.SyncTransforms();
                             }
-                        }
-                        if (Input.GetKey(KeyCode.D))
-                        {
-                            running_right = true;
-                            last_running_left = false;
+                        } else {
                             target = transform.parent.position + Quaternion.AngleAxis(-angle, Vector3.up) * direction;
                             if (charControl.Move(target - position) != CollisionFlags.None)
                             {
@@ -187,13 +143,62 @@ public class MovePlayer : MonoBehaviour
                                 Physics.SyncTransforms();
                             }
                         }
-                    }
-                    if (level == 5) {
-                        animator.SetBool("runningLeft", running_left);
-                        animator.SetBool("runningRight", running_right);
+
+                        if (dashTimer >= dashDuration)
+                        {
+                            isDashing = false;
+                            if (level == 5) {
+                                animator.SetBool("dashingLeft", false);
+                                animator.SetBool("dashingRight", false);
+                            }
+                            else {
+                                animator.SetBool("dashing", false);
+                            }
+                            Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
+                        }
                     }
                     else {
-                        animator.SetBool("running", running_right ^ running_left);
+                        running_left = running_right = false;
+
+                        // Left-right movement
+                        if (Input.GetKey(KeyCode.A) ^ Input.GetKey(KeyCode.D))
+                        {
+                            float angle;
+                            Vector3 direction, target;
+
+                            position = transform.position;
+                            angle = rotationSpeed * Time.deltaTime;
+                            direction = position - transform.parent.position;
+                            if (Input.GetKey(KeyCode.A))
+                            {
+                                running_left = true;
+                                last_running_left = true;
+                                target = transform.parent.position + Quaternion.AngleAxis(angle, Vector3.up) * direction;
+                                if (charControl.Move(target - position) != CollisionFlags.None)
+                                {
+                                    transform.position = position;
+                                    Physics.SyncTransforms();
+                                }
+                            }
+                            if (Input.GetKey(KeyCode.D))
+                            {
+                                running_right = true;
+                                last_running_left = false;
+                                target = transform.parent.position + Quaternion.AngleAxis(-angle, Vector3.up) * direction;
+                                if (charControl.Move(target - position) != CollisionFlags.None)
+                                {
+                                    transform.position = position;
+                                    Physics.SyncTransforms();
+                                }
+                            }
+                        }
+                        if (level == 5) {
+                            animator.SetBool("runningLeft", running_left);
+                            animator.SetBool("runningRight", running_right);
+                        }
+                        else {
+                            animator.SetBool("running", running_right ^ running_left);
+                        }
                     }
                 }
             }
@@ -244,7 +249,7 @@ public class MovePlayer : MonoBehaviour
                     speedY = 0.0f;
                     animator.SetBool("jumping", false);
                 }
-                if (Input.GetKey(KeyCode.Space) && !isDashing) {
+                if (Input.GetKey(KeyCode.Space) && !isDashing && canMove) {
                     speedY = jumpSpeed;
                     animator.SetBool("jumping", true);
                     if (jumpSound != null)

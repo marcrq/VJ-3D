@@ -21,7 +21,7 @@ public class TrapController : MonoBehaviour
     {
         if (isIn && Time.time - temp > 1f)
         {
-            livesPlayer.LoseLife();
+            livesPlayer.LoseLife(5);
             temp = Time.time;
         }
     }
