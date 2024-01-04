@@ -15,7 +15,7 @@ public class MovePlayer : MonoBehaviour
     float speedY;
 
     public bool isDashing;
-    bool canTakeDamage;
+    public bool canTakeDamage;
 
     float dashDuration, dashTimer;
     float lastDashTime;
@@ -47,7 +47,6 @@ public class MovePlayer : MonoBehaviour
         last_running_left = false;
 
         isDashing = false;
-        canTakeDamage = true;
         dashDuration = 0.2f;
         dashTimer = 0.0f;
 
@@ -58,6 +57,10 @@ public class MovePlayer : MonoBehaviour
         dashCooldown = 2.0f;
         lastDashTime = -dashCooldown;
         level = 1;
+
+        canTakeDamage = true;
+        Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
+        Physics.IgnoreLayerCollision(defaultLayer, attackLayer, false);
 
         canMove = true;
     }

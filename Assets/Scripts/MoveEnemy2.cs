@@ -19,8 +19,6 @@ public class MoveEnemy2 : MonoBehaviour
         startDirection.y = 0.0f;
         startDirection.Normalize();
 
-        movingRight = true;
-
         GameObject player = GameObject.Find("Player");
         if (player != null)
         {

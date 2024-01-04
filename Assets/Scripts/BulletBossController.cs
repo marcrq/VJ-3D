@@ -12,6 +12,8 @@ public class BulletBossController : MonoBehaviour
     public float lifespan;
 
     private MoveBoss bossScript;
+    private LifeEnemy lifeBoss;
+    private MovePlayer movePlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,13 @@ public class BulletBossController : MonoBehaviour
         if (boss != null)
         {
             bossScript = boss.GetComponent<MoveBoss>();
+            lifeBoss = boss.GetComponent<LifeEnemy>();
+        }
+
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            movePlayer = player.GetComponent<MovePlayer>();
         }
 
         Destroy(gameObject, lifespan);
@@ -29,21 +38,26 @@ public class BulletBossController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 direction, target;
+        if (lifeBoss.health > 0) {
+            Vector3 direction, target;
 
-        Vector3 position = transform.position;
+            Vector3 position = transform.position;
 
-        direction = bossScript.transform.forward;
-        direction.y = 0;
-        target = position + direction * movementSpeed * Time.deltaTime;
-        rb.MovePosition(target);
+            direction = bossScript.transform.forward;
+            direction.y = 0;
+            target = position + direction * movementSpeed * Time.deltaTime;
+            rb.MovePosition(target);
+        }
+        else {
+            Destroy(gameObject);
+        }
     }
 
 
     void OnCollisionEnter(Collision collision)
     {
         LivesPlayer livesPlayer = collision.gameObject.GetComponent<LivesPlayer>();
-        if (livesPlayer != null)
+        if (livesPlayer != null && movePlayer.canTakeDamage)
         {
             livesPlayer.LoseLife(10);
         }

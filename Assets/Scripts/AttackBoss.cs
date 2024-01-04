@@ -102,7 +102,7 @@ public class AttackBoss : MonoBehaviour
 
         float distance = Vector3.Distance(playerPosition, spawnPosition);
 
-        if (distance <= radius)
+        if (distance <= radius && playerScript.canTakeDamage)
         {
             livesPlayerScript.LoseLife(20);
         }

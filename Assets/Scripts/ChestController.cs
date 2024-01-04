@@ -11,12 +11,19 @@ public class ChestController : MonoBehaviour
     private bool isOpened;
     private GameObject instanciateText;
     private GameObject instanciateObject;
+    private WeaponController weaponController;
     bool isInChest;
 
     void Start()
     {
         isOpened = false;
         isInChest = false;
+
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            weaponController = player.GetComponent<WeaponController>();
+        }
     }
 
     void Update()
@@ -28,6 +35,14 @@ public class ChestController : MonoBehaviour
             Destroy(instanciateText);
             instanciateObject = Instantiate(ChestObject, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity);
             instanciateObject.transform.parent = transform;
+            if (gameObject.CompareTag("ChestR"))
+            {
+                weaponController.hasRifle = true;
+            }
+            else if (gameObject.CompareTag("ChestB"))
+            {
+                weaponController.totalBullets += 10;
+            }
         }
     }
 

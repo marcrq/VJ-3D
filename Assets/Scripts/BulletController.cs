@@ -102,11 +102,10 @@ public class BulletController : MonoBehaviour
         if (lifeEnemy != null)
         {
             lifeEnemy.TakeDamage(damage);
+            var impact = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+            Destroy(impact, 0.5f);
+
+            Destroy(gameObject);
         }
-
-        var impact = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
-        Destroy(impact, 0.5f);
-
-        Destroy(gameObject);
     }
 }

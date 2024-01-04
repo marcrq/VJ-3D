@@ -25,7 +25,6 @@ public class MoveEnemy1 : MonoBehaviour
         startDirection.y = 0.0f;
         startDirection.Normalize();
 
-        movingRight = true;
         jumpInterval = 3.0f;
         verticalSpeed = 0.0f;
         lastJumpTime = -1.0f;
