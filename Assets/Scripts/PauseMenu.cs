@@ -15,6 +15,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OnClickExitButton()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }
     // Start is called before the first frame update
