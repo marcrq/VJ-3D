@@ -13,6 +13,7 @@ public class TPRingController : MonoBehaviour
     public GameObject cercle;
     bool isInTpRing;
     public bool isIn;
+    Collider myCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -24,20 +25,30 @@ public class TPRingController : MonoBehaviour
         }
 
         isInTpRing = false;
+        myCollider = GetComponent<Collider>();
     }
 
-    // Update is called once per frame
+    IEnumerator TeleportPlayer()
+    {
+        isInTpRing = false;
+        player.GetComponent<Collider>().enabled = false;
+        myCollider.enabled = false;
+        yield return new WaitForFixedUpdate();
+        player.transform.position = player.transform.position + movement;
+        cercle.SetActive(false);
+        myCollider.enabled = true;
+        if (instanciateText != null)
+                Destroy(instanciateText);
+        player.GetComponent<Collider>().enabled = true;
+    }
+
     void Update()
     {
         if (isIn && isInTpRing && Input.GetKeyDown(KeyCode.S)) {
-            isInTpRing = false;
-            player.transform.position = player.transform.position + movement;
-            cercle.SetActive(false);
+            StartCoroutine(TeleportPlayer());
         }
         else if (!isIn && isInTpRing && Input.GetKeyDown(KeyCode.W)) {
-            isInTpRing = false;
-            player.transform.position = player.transform.position + movement;
-            cercle.SetActive(false);
+            StartCoroutine(TeleportPlayer());
         }
     }
 
