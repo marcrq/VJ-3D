@@ -31,8 +31,6 @@ public class LivesPlayer : MonoBehaviour
         healthSlider.maxValue = lives;
         healthSlider.value = lives;
         health.text = lives.ToString();
-
-        StartCoroutine(GameOverAfterTwoMinutes());
     }
 
     public void LoseLife(int damage)
@@ -88,10 +86,5 @@ public class LivesPlayer : MonoBehaviour
         Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, true);
         yield return new WaitForSeconds(2);
         Physics.IgnoreLayerCollision(defaultLayer, enemyLayer, false);
-    }
-
-    IEnumerator GameOverAfterTwoMinutes() {
-        yield return new WaitForSeconds(120);
-        GameOver();
     }
 }
