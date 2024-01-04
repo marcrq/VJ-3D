@@ -38,15 +38,10 @@ public class FollowPlayer : MonoBehaviour
             orientation = Quaternion.FromToRotation(startDirection, currentDirection);
         transform.parent.rotation = orientation;
 
-        int dif;
-        if (movePlayer.level == 5) {
-            dif = 2;
-        } else {
-            dif = -1;
+        if (movePlayer.level != 5) {
+            Vector3 cameraPosition = transform.parent.position;
+            cameraPosition.y = player.transform.position.y - 1;
+            transform.parent.position = cameraPosition;
         }
-        // Make the camera follow the player's y position
-        Vector3 cameraPosition = transform.parent.position;
-        cameraPosition.y = player.transform.position.y + dif;
-        transform.parent.position = cameraPosition;
     }
 }
