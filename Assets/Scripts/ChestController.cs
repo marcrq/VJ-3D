@@ -35,6 +35,8 @@ public class ChestController : MonoBehaviour
             Destroy(instanciateText);
             instanciateObject = Instantiate(ChestObject, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity);
             instanciateObject.transform.parent = transform;
+            Transform childTransform = transform.Find("chest cover");
+            childTransform.rotation = Quaternion.Euler(-90f, childTransform.rotation.eulerAngles.y, childTransform.rotation.eulerAngles.z);
             if (gameObject.CompareTag("ChestR"))
             {
                 weaponController.hasRifle = true;
