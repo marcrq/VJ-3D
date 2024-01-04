@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponController : MonoBehaviour
 {
@@ -29,6 +32,11 @@ public class WeaponController : MonoBehaviour
     float reloadCooldown;
     public bool hasRifle;
 
+    public GameObject PistolUI;
+    public GameObject RifleUI;
+    public TextMeshProUGUI BulletsUI;
+    public TextMeshProUGUI TotalBulletsUI;
+
     public AudioClip rifleSound;
     public AudioClip pistolSound;
     public AudioClip reloadSound;
@@ -42,6 +50,8 @@ public class WeaponController : MonoBehaviour
         pistolPBR.SetActive(true);
         gun = pistolPBR.transform;
         currentBulletsPistol = currentBulletsRifle = maxBullets;
+        BulletsUI.text = maxBullets.ToString();
+        TotalBulletsUI.text = totalBullets.ToString();
 
         lastShootTime = -1.0f;
         shootCooldown = 0.5f;
@@ -109,6 +119,11 @@ public class WeaponController : MonoBehaviour
                 lastReloadTime = Time.time;
                 Reload();
             }
+
+            if (hasRifle)
+                RifleUI.SetActive(true);
+
+            TotalBulletsUI.text = totalBullets.ToString();
         }
     }
 
@@ -116,16 +131,24 @@ public class WeaponController : MonoBehaviour
     {
         pistolPBR.SetActive(!pistolPBR.activeSelf);
         assaultRiflePBR.SetActive(!assaultRiflePBR.activeSelf);
+        Image rifleUIImage = RifleUI.GetComponent<Image>();
+        Image pistolUIImage = PistolUI.GetComponent<Image>();
 
         if (pistolPBR.activeSelf)
         {
             animador.SetTrigger("PistolTrigger");
             gun = pistolPBR.transform;
+            rifleUIImage.color = new Color(rifleUIImage.color.r, rifleUIImage.color.g, rifleUIImage.color.b, 0.4f);
+            pistolUIImage.color = new Color(pistolUIImage.color.r, pistolUIImage.color.g, pistolUIImage.color.b, 1f);
+            BulletsUI.text = currentBulletsPistol.ToString();
         }
         else
         {
             animador.SetTrigger("RifleTrigger");
             gun = assaultRiflePBR.transform;
+            pistolUIImage.color = new Color(pistolUIImage.color.r, pistolUIImage.color.g, pistolUIImage.color.b, 0.4f);
+            rifleUIImage.color = new Color(rifleUIImage.color.r, rifleUIImage.color.g, rifleUIImage.color.b, 1f);
+            BulletsUI.text = currentBulletsRifle.ToString();
         }
     }
 
@@ -133,8 +156,10 @@ public class WeaponController : MonoBehaviour
     {
         if (pistolPBR.activeSelf) {
             currentBulletsPistol--;
+            BulletsUI.text = currentBulletsPistol.ToString();
         } else {
             currentBulletsRifle--;
+            BulletsUI.text = currentBulletsRifle.ToString();
         }
         
         var bullet = (GameObject)Instantiate(
@@ -176,6 +201,7 @@ public class WeaponController : MonoBehaviour
                 currentBulletsPistol += totalBullets;
                 totalBullets = 0;
             }
+            BulletsUI.text = currentBulletsPistol.ToString();
         }
         else {
             int bulletsToReload = maxBullets - currentBulletsRifle;
@@ -190,6 +216,7 @@ public class WeaponController : MonoBehaviour
                 currentBulletsRifle += totalBullets;
                 totalBullets = 0;
             }
+            BulletsUI.text = currentBulletsRifle.ToString();
         }
     }
 
