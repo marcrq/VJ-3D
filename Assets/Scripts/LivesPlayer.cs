@@ -39,6 +39,7 @@ public class LivesPlayer : MonoBehaviour
     public void LoseLife(int damage)
     {
         lives -= damage; // Resta vida
+        if (lives < 0) lives = 0;
         if (lives >= 0)
         {
             healthSlider.value = lives;
