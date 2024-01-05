@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    private bool isActive;
+    public bool isActive;
     public GameObject pauseMenu;
 
     // Start is called before the first frame update
